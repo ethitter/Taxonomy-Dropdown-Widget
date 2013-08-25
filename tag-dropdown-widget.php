@@ -58,7 +58,7 @@ class taxonomy_dropdown_widget_plugin {
 
 	/*
 	 * Run plugin cleanup on activation
-	 * @uses $this::cleanup
+	 * @uses this::cleanup
 	 * @hook activation
 	 * @return null
 	 */
@@ -68,13 +68,11 @@ class taxonomy_dropdown_widget_plugin {
 
 	/*
 	 * Unregister widget when plugin is deactivated and run cleanup
-	 * @uses unregister_widget, $this::cleanup
+	 * @uses this::cleanup
 	 * @hook deactivation
 	 * @return null
 	 */
 	function deactivation_hook() {
-		unregister_widget( 'taxonomy_dropdown_widget' );
-
 		$this->cleanup();
 	}
 
@@ -91,8 +89,9 @@ class taxonomy_dropdown_widget_plugin {
 			'TDW_direct'
 		);
 
-		foreach( $legacy_options as $legacy_option )
+		foreach ( $legacy_options as $legacy_option ) {
 			delete_option( $legacy_option );
+		}
 	}
 
 	/*
@@ -102,7 +101,7 @@ class taxonomy_dropdown_widget_plugin {
 	 * @return null
 	 */
 	function action_widgets_init() {
-		if( class_exists( 'taxonomy_dropdown_widget' ) )
+		if ( class_exists( 'taxonomy_dropdown_widget' ) )
 			register_widget( 'taxonomy_dropdown_widget' );
 	}
 
@@ -118,9 +117,9 @@ class taxonomy_dropdown_widget_plugin {
 		extract( $options );
 
 		//ID
-		if( is_numeric( $id ) )
+		if ( is_numeric( $id ) )
 			$id = intval( $id );
-		elseif( is_string( $id ) )
+		elseif ( is_string( $id ) )
 			$id = sanitize_title( $id );
 
 		//Set up options array for get_terms
@@ -131,10 +130,10 @@ class taxonomy_dropdown_widget_plugin {
 			'hierarchical' => false
 		);
 
-		if( $limit )
+		if ( $limit )
 			$options[ 'number' ] = $limit;
 
-		if( !empty( $incexc_ids ) )
+		if ( !empty( $incexc_ids ) )
 			$options[ $incexc ] = $incexc_ids;
 
 		$options = apply_filters( 'taxonomy_dropdown_widget_options', $options, $id );
@@ -143,11 +142,11 @@ class taxonomy_dropdown_widget_plugin {
 		//Get terms
 		$terms = get_terms( $taxonomy, $options );
 
-		if( !is_wp_error( $terms ) && is_array( $terms ) && !empty( $terms ) ) {
+		if ( !is_wp_error( $terms ) && is_array( $terms ) && !empty( $terms ) ) {
 			//CSS ID
-			if( is_int( $id ) )
+			if ( is_int( $id ) )
 				$css_id = ' id="taxonomy_dropdown_widget_dropdown_' . $id . '"';
-			elseif( is_string( $id ) && !empty( $id ) )
+			elseif ( is_string( $id ) && !empty( $id ) )
 				$css_id = ' id="' . $id . '"';
 
 			//Start dropdown
@@ -157,8 +156,8 @@ class taxonomy_dropdown_widget_plugin {
 
 			//Populate dropdown
 			$i = 1;
-			foreach( $terms as $term ) {
-				if( $threshold > 0 && $term->count < $threshold )
+			foreach ( $terms as $term ) {
+				if ( $threshold > 0 && $term->count < $threshold )
 					continue;
 
 				//Set selected attribute if on an archive page for the current term
@@ -169,12 +168,12 @@ class taxonomy_dropdown_widget_plugin {
 
 				//Tag name
 				$name = esc_attr( $term->name );
-				if( $max_name_length > 0 && strlen( $name ) > $max_name_length )
+				if ( $max_name_length > 0 && strlen( $name ) > $max_name_length )
 					$name = substr( $name, 0, $max_name_length ) . $cutoff;
 				$output .= $name;
 
 				//Count
-				if( $post_counts )
+				if ( $post_counts )
 					$output .= ' (' . intval( $term->count ) . ')';
 
 				//Close option tag
@@ -187,9 +186,9 @@ class taxonomy_dropdown_widget_plugin {
 			$output .= '</select>';
 
 			return $output;
-		}
-		else
+		} else {
 			return false;
+		}
 	}
 
 	/*
@@ -206,16 +205,16 @@ class taxonomy_dropdown_widget_plugin {
 
 		$keys = array_merge( array_keys( $this->option_defaults ), array( 'title' ) );
 
-		if( is_array( $options ) ) {
-			foreach( $keys as $key ) {
-				if( !array_key_exists( $key, $options ) )
+		if ( is_array( $options ) ) {
+			foreach ( $keys as $key ) {
+				if ( !array_key_exists( $key, $options ) )
 					continue;
 
 				$value = $options[ $key ];
 
 				switch( $key ) {
 					case 'taxonomy':
-						if( taxonomy_exists( $value ) )
+						if ( taxonomy_exists( $value ) )
 							$options_sanitized[ $key ] = $value;
 					break;
 
@@ -224,7 +223,7 @@ class taxonomy_dropdown_widget_plugin {
 					case 'cutoff':
 						$value = sanitize_text_field( $value );
 
-						if( !empty( $value ) || $key == 'title' )
+						if ( !empty( $value ) || $key == 'title' )
 							$options_sanitized[ $key ] = $value;
 					break;
 
@@ -235,31 +234,31 @@ class taxonomy_dropdown_widget_plugin {
 					break;
 
 					case 'order':
-						if( $value == 'ASC' || $value == 'DESC' )
+						if ( $value == 'ASC' || $value == 'DESC' )
 							$options_sanitized[ $key ] = $value;
 					break;
 
 					case 'orderby':
-						if( $value == 'name' || $value == 'count' )
+						if ( $value == 'name' || $value == 'count' )
 							$options_sanitized[ $key ] = $value;
 					break;
 
 					case 'incexc':
-						if( $value == 'include' || $value == 'exclude' )
+						if ( $value == 'include' || $value == 'exclude' )
 							$options_sanitized[ $key ] = $value;
 					break;
 
 					case 'incexc_ids':
 						$options_sanitized[ $key ] = array();
 
-						if( is_string( $value ) )
+						if ( is_string( $value ) )
 							$value = explode( ',', $value );
 
-						if( is_array( $value ) ) {
-							foreach( $value as $term_id ) {
+						if ( is_array( $value ) ) {
+							foreach ( $value as $term_id ) {
 								$term_id = intval( $term_id );
 
-								if( $term_id > 0 )
+								if ( $term_id > 0 )
 									$options_sanitized[ $key ][] = $term_id;
 
 								unset( $term_id );
@@ -286,16 +285,9 @@ class taxonomy_dropdown_widget_plugin {
 
 		return $options_sanitized;
 	}
-
-	/*
-	 * PHP 4 compatibility
-	 */
-	function taxonomy_dropdown_widget_plugin() {
-		$this->__construct();
-	}
 }
 global $taxonomy_dropdown_widget_plugin;
-if( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
+if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
 	$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
 
 /**
@@ -319,10 +311,10 @@ class taxonomy_dropdown_widget extends WP_Widget {
 
 		//Load plugin class and populate defaults
 		global $taxonomy_dropdown_widget_plugin;
-		if( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
+		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
 			$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
 
-		if( is_object( $taxonomy_dropdown_widget_plugin ) && property_exists( $taxonomy_dropdown_widget_plugin, 'option_defaults' ) && is_array( $taxonomy_dropdown_widget_plugin->option_defaults ) )
+		if ( is_object( $taxonomy_dropdown_widget_plugin ) && property_exists( $taxonomy_dropdown_widget_plugin, 'option_defaults' ) && is_array( $taxonomy_dropdown_widget_plugin->option_defaults ) )
 			$this->defaults = array_merge( $taxonomy_dropdown_widget_plugin->option_defaults, $this->defaults );
 	}
 
@@ -336,7 +328,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
 	function widget( $args, $instance ) {
 		//Get plugin class for default options and to build widget
 		global $taxonomy_dropdown_widget_plugin;
-		if( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
+		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
 			$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
 
 		//Options
@@ -345,11 +337,11 @@ class taxonomy_dropdown_widget extends WP_Widget {
 		extract( $instance );
 
 		//Widget
-		if( $widget = $taxonomy_dropdown_widget_plugin->render_dropdown( $instance, $this->number ) ) {
+		if ( $widget = $taxonomy_dropdown_widget_plugin->render_dropdown( $instance, $this->number ) ) {
 			//Wrapper and title
 			$output = $before_widget;
 
-			if( !empty( $title ) )
+			if ( !empty( $title ) )
 				$output .= $before_title . apply_filters( 'taxonomy_dropdown_widget_title', '<label for="taxonomy_dropdown_widget_dropdown_' . $this->number . '">' . $title . '</label>', $this->number ) . $after_title;
 
 			//Widget
@@ -372,7 +364,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		//Get plugin class for sanitization function
 		global $taxonomy_dropdown_widget_plugin;
-		if( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
+		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
 			$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
 
 		return $taxonomy_dropdown_widget_plugin->sanitize_options( $new_instance );
@@ -395,10 +387,10 @@ class taxonomy_dropdown_widget extends WP_Widget {
 			'hierarchical' => false
 		), 'objects' );
 
-		if( array_key_exists( 'nav_menu', $taxonomies ) )
+		if ( array_key_exists( 'nav_menu', $taxonomies ) )
 			unset( $taxonomies[ 'nav_menu' ] );
 
-		if( array_key_exists( 'post_format', $taxonomies ) )
+		if ( array_key_exists( 'post_format', $taxonomies ) )
 			unset( $taxonomies[ 'post_format' ] );
 
 	?>
@@ -407,7 +399,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e( 'Taxonomy' ); ?>:</label><br />
 			<select name="<?php echo $this->get_field_name( 'taxonomy' ); ?>" id="<?php echo $this->get_field_id( 'taxonomy' ); ?>">
-				<?php foreach( $taxonomies as $tax ): ?>
+				<?php foreach ( $taxonomies as $tax ): ?>
 					<option value="<?php echo esc_attr( $tax->name ); ?>"<?php selected( $tax->name, $taxonomy, true ); ?>><?php echo $tax->labels->name; ?></option>
 				<?php endforeach; ?>
 			</select>
@@ -518,7 +510,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
  */
 function taxonomy_dropdown_widget( $options = array(), $id = '' ) {
 	global $taxonomy_dropdown_widget_plugin;
-	if( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
+	if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
 		$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
 
 	//Sanitize options
@@ -531,7 +523,7 @@ function taxonomy_dropdown_widget( $options = array(), $id = '' ) {
  ** LEGACY FUNCTIONS FOR BACKWARDS COMPATIBILITY
  **/
 
-if( !function_exists( 'generateTagDropdown' ) ):
+if ( !function_exists( 'generateTagDropdown' ) ):
 	/*
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.7
@@ -540,7 +532,7 @@ if( !function_exists( 'generateTagDropdown' ) ):
 	 */
 	function generateTagDropdown( $args ) {
 		global $taxonomy_dropdown_widget_plugin;
-		if( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
+		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
 			$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
 
 		//Sanitize options
@@ -550,7 +542,7 @@ if( !function_exists( 'generateTagDropdown' ) ):
 	}
 endif;
 
-if( !function_exists( 'TDW_direct' ) ):
+if ( !function_exists( 'TDW_direct' ) ):
 	/*
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.6
@@ -559,7 +551,7 @@ if( !function_exists( 'TDW_direct' ) ):
 	 */
 	function TDW_direct( $limit = false, $count = false, $exclude = false ) {
 		global $taxonomy_dropdown_widget_plugin;
-		if( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
+		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
 			$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
 
 		//Build options array from function parameters
@@ -568,7 +560,7 @@ if( !function_exists( 'TDW_direct' ) ):
 			'post_count' => $count
 		);
 
-		if( $exclude ) {
+		if ( $exclude ) {
 			$options[ 'incexc' ] = 'exclude';
 			$options[ 'incexc_ids' ] = $exclude;
 		}
@@ -580,7 +572,7 @@ if( !function_exists( 'TDW_direct' ) ):
 	}
 endif;
 
-if( !function_exists( 'makeTagDropdown' ) ):
+if ( !function_exists( 'makeTagDropdown' ) ):
 	/*
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.3
@@ -589,7 +581,7 @@ if( !function_exists( 'makeTagDropdown' ) ):
 	 */
 	function makeTagDropdown( $limit = false ) {
 		global $taxonomy_dropdown_widget_plugin;
-		if( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
+		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
 			$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
 
 		//Sanitize options
