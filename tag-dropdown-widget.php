@@ -35,18 +35,18 @@ class taxonomy_dropdown_widget_plugin {
 	 * Class variables
 	 */
 	protected $option_defaults = array(
-		'taxonomy' => 'post_tag',
-		'select_name' => 'Select Tag',
+		'taxonomy'        => 'post_tag',
+		'select_name'     => 'Select Tag',
 		'max_name_length' => 0,
-		'cutoff' => '&hellip;',
-		'limit' => 0,
-		'order' => 'ASC',
-		'orderby' => 'name',
-		'threshold' => 0,
-		'incexc' => 'exclude',
-		'incexc_ids' => array(),
-		'hide_empty' => true,
-		'post_counts' => false
+		'cutoff'          => '&hellip;',
+		'limit'           => 0,
+		'order'           => 'ASC',
+		'orderby'         => 'name',
+		'threshold'       => 0,
+		'incexc'          => 'exclude',
+		'incexc_ids'      => array(),
+		'hide_empty'      => true,
+		'post_counts'     => false,
 	);
 
 	/**
@@ -122,7 +122,7 @@ class taxonomy_dropdown_widget_plugin {
 			'widget_TagDropdown',
 			'widget_TagDropdown_exclude',
 			'function_TagDropdown',
-			'TDW_direct'
+			'TDW_direct',
 		);
 
 		foreach ( $legacy_options as $legacy_option ) {
@@ -169,10 +169,10 @@ class taxonomy_dropdown_widget_plugin {
 
 		//Set up options array for get_terms
 		$options = array(
-			'order' => $order,
-			'orderby' => $orderby,
-			'hide_empty' => $hide_empty,
-			'hierarchical' => false
+			'order'        => $order,
+			'orderby'      => $orderby,
+			'hide_empty'   => $hide_empty,
+			'hierarchical' => false,
 		);
 
 		if ( $limit )
@@ -247,8 +247,8 @@ class taxonomy_dropdown_widget_plugin {
 	 */
 	public function sanitize_options( $options ) {
 		$options_sanitized = array(
-			'hide_empty' => true,
-			'post_counts' => false
+			'hide_empty'  => true,
+			'post_counts' => false,
 		);
 
 		$keys = array_merge( array_keys( $this->option_defaults ), array( 'title' ) );
@@ -344,7 +344,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
 	 * Class variables
 	 */
 	private $defaults = array(
-		'title' => 'Tags'
+		'title' => 'Tags',
 	);
 
 	/**
@@ -439,8 +439,8 @@ class taxonomy_dropdown_widget extends WP_Widget {
 
 		//Get taxonomies and remove certain Core taxonomies that shouldn't be accessed directly.
 		$taxonomies = get_taxonomies( array(
-			'public' => true,
-			'hierarchical' => false
+			'public'       => true,
+			'hierarchical' => false,
 		), 'objects' );
 
 		if ( array_key_exists( 'nav_menu', $taxonomies ) )
@@ -607,7 +607,7 @@ if ( !function_exists( 'TDW_direct' ) ):
 		// Build options array from function parameters
 		$options = array(
 			'max_name_length' => $limit,
-			'post_count'      => $count
+			'post_count'      => $count,
 		);
 
 		if ( $exclude ) {
@@ -635,7 +635,7 @@ if ( !function_exists( 'makeTagDropdown' ) ):
 
 		// Sanitize options
 		$options = array(
-			'max_name_length' => intval( $limit )
+			'max_name_length' => intval( $limit ),
 		);
 
 		echo '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 1.6 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget` instead. -->' . taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, 'legacy_mtd' );
