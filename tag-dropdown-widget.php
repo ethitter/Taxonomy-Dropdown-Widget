@@ -31,7 +31,7 @@ class taxonomy_dropdown_widget_plugin {
 	 */
 	private static $__instance = null;
 
-	/*
+	/**
 	 * Class variables
 	 */
 	var $option_defaults = array(
@@ -62,9 +62,11 @@ class taxonomy_dropdown_widget_plugin {
 		return self::$__instance;
 	}
 
-	/*
+	/**
 	 * Register actions and activation/deactivation hooks
-	 * @uses add_action, register_activation_hook, register_deactivation_hook
+	 * @uses add_action
+	 * @uses register_activation_hook
+	 * @uses register_deactivation_hook
 	 * @return null
 	 */
 	private function __construct() {
@@ -74,7 +76,7 @@ class taxonomy_dropdown_widget_plugin {
 		register_deactivation_hook( __FILE__, array( $this, 'deactivation_hook' ) );
 	}
 
-	/*
+	/**
 	 * Run plugin cleanup on activation
 	 * @uses this::cleanup
 	 * @hook activation
@@ -84,7 +86,7 @@ class taxonomy_dropdown_widget_plugin {
 		$this->cleanup();
 	}
 
-	/*
+	/**
 	 * Unregister widget when plugin is deactivated and run cleanup
 	 * @uses this::cleanup
 	 * @hook deactivation
@@ -94,7 +96,7 @@ class taxonomy_dropdown_widget_plugin {
 		$this->cleanup();
 	}
 
-	/*
+	/**
 	 * Remove options related to plugin versions older than 2.0.
 	 * @uses add_filter
 	 * @uses delete_option
@@ -116,7 +118,7 @@ class taxonomy_dropdown_widget_plugin {
 		}
 	}
 
-	/*
+	/**
 	 * Register widget
 	 * @uses register_widget
 	 * @action widgets_init
@@ -127,11 +129,20 @@ class taxonomy_dropdown_widget_plugin {
 			register_widget( 'taxonomy_dropdown_widget' );
 	}
 
-	/*
+	/**
 	 * Render widget
 	 * @param array $options
 	 * @param string|int $id
-	 * @uses wp_parse_args, sanitize_title, apply_filters, get_terms, is_wp_error, is_tag, is_tax, esc_url, get_term_link, selected
+	 * @uses wp_parse_args
+	 * @uses sanitize_title
+	 * @uses apply_filters
+	 * @uses get_terms
+	 * @uses is_wp_error
+	 * @uses is_tag
+	 * @uses is_tax
+	 * @uses esc_url
+	 * @uses get_term_link
+	 * @uses selected
 	 * @return string or false
 	 */
 	function render_dropdown( $options, $id = false ) {
@@ -213,10 +224,13 @@ class taxonomy_dropdown_widget_plugin {
 		}
 	}
 
-	/*
+	/**
 	 * Sanitize plugin options
 	 * @param array $options
-	 * @uses taxonomy_exists, sanitize_text_field, absint, wp_parse_args
+	 * @uses taxonomy_exists
+	 * @uses sanitize_text_field
+	 * @uses absint
+	 * @uses wp_parse_args
 	 * @return array
 	 */
 	function sanitize_options( $options ) {
@@ -314,16 +328,17 @@ $GLOBALS['taxonomy_dropdown_widget_plugin'] = taxonomy_dropdown_widget_plugin::g
  ** TAXONOMY DROPDOWN WIDGET
  **/
 class taxonomy_dropdown_widget extends WP_Widget {
-	/*
+	/**
 	 * Class variables
 	 */
 	var $defaults = array(
 		'title' => 'Tags'
 	);
 
-	/*
+	/**
 	 * Register widget and populate class variables
-	 * @uses $this::WP_Widget, $taxonomy_dropdown_widget_plugin
+	 * @uses this::WP_Widget
+	 * @uses taxonomy_dropdown_widget_plugin
 	 * @return null
 	 */
 	function taxonomy_dropdown_widget() {
@@ -338,11 +353,13 @@ class taxonomy_dropdown_widget extends WP_Widget {
 			$this->defaults = array_merge( $taxonomy_dropdown_widget_plugin->option_defaults, $this->defaults );
 	}
 
-	/*
+	/**
 	 * Render widget
 	 * @param array $args
 	 * @param array $instance
-	 * @uses $taxonomy_dropdown_widget_plugin, wp_parse_args, apply_filters
+	 * @uses taxonomy_dropdown_widget_plugin
+	 * @uses wp_parse_args
+	 * @uses apply_filters
 	 * @return string or null
 	 */
 	function widget( $args, $instance ) {
@@ -374,11 +391,11 @@ class taxonomy_dropdown_widget extends WP_Widget {
 		}
 	}
 
-	/*
+	/**
 	 * Options sanitization
 	 * @param array $new_instance
 	 * @param array $old_instance
-	 * @uses $taxonomy_dropdown_widget_plugin
+	 * @uses taxonomy_dropdown_widget_plugin
 	 * @return array
 	 */
 	function update( $new_instance, $old_instance ) {
@@ -390,10 +407,17 @@ class taxonomy_dropdown_widget extends WP_Widget {
 		return $taxonomy_dropdown_widget_plugin->sanitize_options( $new_instance );
 	}
 
-	/*
+	/**
 	 * Widget options
 	 * @param array $instance
-	 * @uses wp_parse_args, get_taxonomies, _e, $this::get_field_id, $this::get_field_name, esc_attr, selected, checked
+	 * @uses wp_parse_args
+	 * @uses get_taxonomies
+	 * @uses _e
+	 * @uses this::get_field_id
+	 * @uses this::get_field_name
+	 * @uses esc_attr
+	 * @uses selected
+	 * @uses checked
 	 * @return string
 	 */
 	function form( $instance ) {
@@ -521,11 +545,11 @@ class taxonomy_dropdown_widget extends WP_Widget {
  ** HELPER FUNCTIONS
  **/
 
-/*
+/**
  * Render taxonomy dropdown
  * @param array $options
  * @param string|int $id
- * @uses $taxonomy_dropdown_widget_plugin
+ * @uses taxonomy_dropdown_widget_plugin
  * @return string or false
  */
 function taxonomy_dropdown_widget( $options = array(), $id = '' ) {
@@ -544,10 +568,10 @@ function taxonomy_dropdown_widget( $options = array(), $id = '' ) {
  **/
 
 if ( !function_exists( 'generateTagDropdown' ) ):
-	/*
+	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.7
-	 * @uses $taxonomy_dropdown_widget_plugin
+	 * @uses taxonomy_dropdown_widget_plugin
 	 * @return string or false
 	 */
 	function generateTagDropdown( $args ) {
@@ -563,10 +587,10 @@ if ( !function_exists( 'generateTagDropdown' ) ):
 endif;
 
 if ( !function_exists( 'TDW_direct' ) ):
-	/*
+	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.6
-	 * @uses $taxonomy_dropdown_widget_plugin
+	 * @uses taxonomy_dropdown_widget_plugin
 	 * @return string or false
 	 */
 	function TDW_direct( $limit = false, $count = false, $exclude = false ) {
@@ -593,10 +617,10 @@ if ( !function_exists( 'TDW_direct' ) ):
 endif;
 
 if ( !function_exists( 'makeTagDropdown' ) ):
-	/*
+	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.3
-	 * @uses $taxonomy_dropdown_widget_plugin
+	 * @uses taxonomy_dropdown_widget_plugin
 	 * @return string or false
 	 */
 	function makeTagDropdown( $limit = false ) {
