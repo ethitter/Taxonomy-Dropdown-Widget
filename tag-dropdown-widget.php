@@ -92,7 +92,7 @@ class taxonomy_dropdown_widget_plugin {
 	 * @hook deactivation
 	 * @return null
 	 */
-	public deactivation_hook() {
+	public function deactivation_hook() {
 		$this->cleanup();
 	}
 
