@@ -567,10 +567,13 @@ if ( !function_exists( 'generateTagDropdown' ) ):
 	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.7
+	 * @uses _deprecated_function
 	 * @uses taxonomy_dropdown_widget_plugin::get_instance
 	 * @return string or false
 	 */
 	function generateTagDropdown( $args ) {
+		_deprecated_function( 'generateTagDropdown', '2.0 of Taxonomy (Tag) Dropdown Widget', 'taxonomy_dropdown_widget' );
+
 		// Sanitize options
 		$options = taxonomy_dropdown_widget_plugin::get_instance()->sanitize_options( $args );
 
@@ -582,10 +585,13 @@ if ( !function_exists( 'TDW_direct' ) ):
 	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.6
+	 * @uses _deprecated_function
 	 * @uses taxonomy_dropdown_widget_plugin::get_instance
 	 * @return string or false
 	 */
 	function TDW_direct( $limit = false, $count = false, $exclude = false ) {
+		_deprecated_function( 'TDW_direct', '1.7 of Taxonomy (Tag) Dropdown Widget', 'taxonomy_dropdown_widget' );
+
 		// Build options array from function parameters
 		$options = array(
 			'max_name_length' => $limit,
@@ -608,11 +614,14 @@ if ( !function_exists( 'makeTagDropdown' ) ):
 	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.3
+	 * @uses _deprecated_function
 	 * @uses taxonomy_dropdown_widget_plugin::get_instance
 	 * @return string or false
 	 */
 	function makeTagDropdown( $limit = false ) {
-		//Sanitize options
+		_deprecated_function( 'makeTagDropdown', '1.6 of Taxonomy (Tag) Dropdown Widget', 'taxonomy_dropdown_widget' );
+
+		// Sanitize options
 		$options = array(
 			'max_name_length' => intval( $limit )
 		);
