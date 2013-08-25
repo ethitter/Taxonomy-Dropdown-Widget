@@ -146,13 +146,16 @@ class taxonomy_dropdown_widget_plugin {
 
 	/**
 	 * Render widget
+	 *
 	 * @param array $options
 	 * @param string|int $id
 	 * @uses wp_parse_args
+	 * @uses this::sanitize_options
 	 * @uses sanitize_title
 	 * @uses apply_filters
 	 * @uses get_terms
-	 * @uses is_wp_error
+	 * @uses esc_attr
+	 * @uses esc_html
 	 * @uses is_tag
 	 * @uses is_tax
 	 * @uses esc_url
@@ -162,75 +165,73 @@ class taxonomy_dropdown_widget_plugin {
 	 */
 	public function render_dropdown( $options, $id = false ) {
 		$options = wp_parse_args( $options, $this->option_defaults );
-		extract( $options );
+		$options = $this->sanitize_options( $options );
 
-		//ID
-		if ( is_numeric( $id ) )
-			$id = intval( $id );
-		elseif ( is_string( $id ) )
-			$id = sanitize_title( $id );
+		$id = is_numeric( $id ) ? intval( $id ) : sanitize_title( $id );
 
-		//Set up options array for get_terms
-		$options = array(
-			'order'        => $order,
-			'orderby'      => $orderby,
-			'hide_empty'   => $hide_empty,
+		// Set up options array for get_terms
+		$terms_options = array(
+			'order'        => $options['order'],
+			'orderby'      => $options['orderby'],
+			'hide_empty'   => $options['hide_empty'],
 			'hierarchical' => false,
 		);
 
-		if ( $limit )
-			$options[ 'number' ] = $limit;
+		if ( $options['limit'] )
+			$terms_options[ 'number' ] = $options['limit'];
 
-		if ( ! empty( $incexc_ids ) )
-			$options[ $incexc ] = $incexc_ids;
+		if ( ! empty( $options['incexc_ids'] ) )
+			$terms_options[ $incexc ] = $options['incexc_ids'];
 
-		$options = apply_filters( 'taxonomy_dropdown_widget_options', $options, $id );
-		$options = apply_filters( 'TagDropdown_get_tags', $options );
+		$terms_options = apply_filters( 'taxonomy_dropdown_widget_options', $terms_options, $id );
+		$terms_options = apply_filters( 'TagDropdown_get_tags', $terms_options );
 
-		//Get terms
-		$terms = get_terms( $taxonomy, $options );
+		// Get terms
+		$terms = get_terms( $options['taxonomy'], $terms_options );
 
-		if ( ! is_wp_error( $terms ) && is_array( $terms ) && ! empty( $terms ) ) {
-			//CSS ID
+		if ( is_array( $terms ) && ! empty( $terms ) ) {
+			// Determine CSS ID
 			if ( is_int( $id ) )
 				$css_id = ' id="taxonomy_dropdown_widget_dropdown_' . $id . '"';
-			elseif ( is_string( $id ) && ! empty( $id ) )
-				$css_id = ' id="' . $id . '"';
+			elseif ( ! empty( $id ) )
+				$css_id = ' id="' . esc_attr( $id ) . '"';
+			else
+				$css_id = '';
 
-			//Start dropdown
-			$output = '<select name="taxonomy_dropdown_widget_dropdown_' . $id . '" class="taxonomy_dropdown_widget_dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;"' . ( isset( $css_id ) ? $css_id : '' ) . '>' . "\r\n";
+			// Start dropdown
+			$output = '<select name="taxonomy_dropdown_widget_dropdown_' . esc_attr( $id ) . '" class="taxonomy_dropdown_widget_dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;"' . $css_id . '>' . "\r\n";
 
-			$output .= "\t" . '<option value="">' . $select_name . '</option>' . "\r\n";
+			$output .= "\t" . '<option value="">' . esc_html( $options['select_name'] ) . '</option>' . "\r\n";
 
-			//Populate dropdown
+			// Populate dropdown
 			$i = 1;
 			foreach ( $terms as $term ) {
-				if ( $threshold > 0 && $term->count < $threshold )
+				if ( $options['threshold'] > 0 && $term->count < $options['threshold'] )
 					continue;
 
-				//Set selected attribute if on an archive page for the current term
-				$current = is_tag() ? is_tag( $term->slug ) : is_tax( $taxonomy, $term->slug );
+				// Set selected attribute if on an archive page for the current term
+				$current = is_tag() ? is_tag( $term->slug ) : is_tax( $term->taxonomy, $term->slug );
 
-				//Open option tag
-				$output .= "\t" . '<option value="' . esc_url( get_term_link( (int)$term->term_id, $taxonomy ) ) . '"' . ( selected( $current, true , false ) ) . '>';
+				// Open option tag
+				$output .= "\t" . '<option value="' . esc_url( get_term_link( (int) $term->term_id, $term->taxonomy ) ) . '"' . ( selected( $current, true , false ) ) . '>';
 
-				//Tag name
+				// Tag name
 				$name = esc_attr( $term->name );
-				if ( $max_name_length > 0 && strlen( $name ) > $max_name_length )
-					$name = substr( $name, 0, $max_name_length ) . $cutoff;
+				if ( $options['max_name_length'] > 0 && strlen( $name ) > $options['max_name_length'] )
+					$name = substr( $name, 0, $options['max_name_length'] ) . $options['cutoff'];
 				$output .= $name;
 
-				//Count
-				if ( $post_counts )
+				// Count
+				if ( $options['post_counts'] )
 					$output .= ' (' . intval( $term->count ) . ')';
 
-				//Close option tag
+				// Close option tag
 				$output .= '</option>' . "\r\n";
 
 				$i++;
 			}
 
-			//End dropdown
+			// End dropdown
 			$output .= '</select>' . "\r\n";
 
 			return $output;
