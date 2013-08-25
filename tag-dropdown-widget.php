@@ -347,56 +347,51 @@ class taxonomy_dropdown_widget extends WP_Widget {
 		'title' => 'Tags',
 	);
 
+	private $plugin = null;
+
 	/**
 	 * Register widget and populate class variables
 	 * @uses this::WP_Widget
-	 * @uses taxonomy_dropdown_widget_plugin
+	 * @uses taxonomy_dropdown_widget_plugin::get_instance
 	 * @return null
 	 */
 	public function __construct() {
 		$this->WP_Widget( false, 'Taxonomy Dropdown Widget', array( 'description' => 'Displays selected non-hierarchical taxonomy terms in a dropdown list.' ) );
 
-		//Load plugin class and populate defaults
-		global $taxonomy_dropdown_widget_plugin;
-		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
-			$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
+		// Shortcut to the main plugin instance from within the widget class
+		$this->plugin = taxonomy_dropdown_widget_plugin::get_instance();
 
-		if ( is_object( $taxonomy_dropdown_widget_plugin ) && property_exists( $taxonomy_dropdown_widget_plugin, 'option_defaults' ) && is_array( $taxonomy_dropdown_widget_plugin->option_defaults ) )
-			$this->defaults = array_merge( $taxonomy_dropdown_widget_plugin->option_defaults, $this->defaults );
+		//Load plugin class and populate defaults
+		if ( is_object( $this->plugin ) && is_array( $this->plugin->option_defaults ) )
+			$this->defaults = array_merge( $this->plugin->option_defaults, $this->defaults );
 	}
 
 	/**
 	 * Render widget
 	 * @param array $args
 	 * @param array $instance
-	 * @uses taxonomy_dropdown_widget_plugin
 	 * @uses wp_parse_args
 	 * @uses apply_filters
 	 * @return string or null
 	 */
 	public function widget( $args, $instance ) {
-		//Get plugin class for default options and to build widget
-		global $taxonomy_dropdown_widget_plugin;
-		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
-			$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
-
-		//Options
+		// Options
 		$instance = wp_parse_args( $instance, $this->defaults );
 		extract( $args );
 		extract( $instance );
 
-		//Widget
-		if ( $widget = $taxonomy_dropdown_widget_plugin->render_dropdown( $instance, $this->number ) ) {
-			//Wrapper and title
+		// Widget
+		if ( $widget = $this->plugin->render_dropdown( $instance, $this->number ) ) {
+			// Wrapper and title
 			$output = $before_widget;
 
 			if ( !empty( $title ) )
 				$output .= $before_title . apply_filters( 'taxonomy_dropdown_widget_title', '<label for="taxonomy_dropdown_widget_dropdown_' . $this->number . '">' . $title . '</label>', $this->number ) . $after_title;
 
-			//Widget
+			// Widget
 			$output .= $widget;
 
-			//Wrapper
+			// Wrapper
 			$output .= $after_widget;
 
 			echo $output;
@@ -407,16 +402,10 @@ class taxonomy_dropdown_widget extends WP_Widget {
 	 * Options sanitization
 	 * @param array $new_instance
 	 * @param array $old_instance
-	 * @uses taxonomy_dropdown_widget_plugin
 	 * @return array
 	 */
 	public function update( $new_instance, $old_instance ) {
-		//Get plugin class for sanitization function
-		global $taxonomy_dropdown_widget_plugin;
-		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
-			$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
-
-		return $taxonomy_dropdown_widget_plugin->sanitize_options( $new_instance );
+		return $this->plugin->sanitize_options( $new_instance );
 	}
 
 	/**
