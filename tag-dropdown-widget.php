@@ -118,6 +118,7 @@ class taxonomy_dropdown_widget_plugin {
 		if ( ! add_filter( 'taxonomy_dropdown_widget_run_cleanup', true ) )
 			return;
 
+		// Remove unused options
 		$legacy_options = array(
 			'widget_TagDropdown',
 			'widget_TagDropdown_exclude',
@@ -128,6 +129,9 @@ class taxonomy_dropdown_widget_plugin {
 		foreach ( $legacy_options as $legacy_option ) {
 			delete_option( $legacy_option );
 		}
+
+		// Let others play too
+		do_action( 'taxonomy_dropdown_widget_cleanup' );
 	}
 
 	/**
@@ -137,8 +141,7 @@ class taxonomy_dropdown_widget_plugin {
 	 * @return null
 	 */
 	public function action_widgets_init() {
-		if ( class_exists( 'taxonomy_dropdown_widget' ) )
-			register_widget( 'taxonomy_dropdown_widget' );
+		register_widget( 'taxonomy_dropdown_widget' );
 	}
 
 	/**
