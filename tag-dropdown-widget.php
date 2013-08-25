@@ -331,7 +331,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
 	/**
 	 * Class variables
 	 */
-	var $defaults = array(
+	private $defaults = array(
 		'title' => 'Tags'
 	);
 
