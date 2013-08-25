@@ -26,6 +26,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ** TAXONOMY DROPDOWN WIDGET PLUGIN
  **/
 class taxonomy_dropdown_widget_plugin {
+	/**
+	 * Singleton!
+	 */
+	private static $__instance = null;
+
 	/*
 	 * Class variables
 	 */
@@ -44,12 +49,25 @@ class taxonomy_dropdown_widget_plugin {
 		'post_counts' => false
 	);
 
+	/**
+	 * Implement the singleton
+	 *
+	 * @return object
+	 */
+	public static function get_instance() {
+		if ( ! is_a( self::$__instance, __CLASS__ ) ) {
+			self::$__instance = new self;
+		}
+
+		return self::$__instance;
+	}
+
 	/*
 	 * Register actions and activation/deactivation hooks
 	 * @uses add_action, register_activation_hook, register_deactivation_hook
 	 * @return null
 	 */
-	function __construct() {
+	private function __construct() {
 		add_action( 'widgets_init', array( $this, 'action_widgets_init' ) );
 
 		register_activation_hook( __FILE__, array( $this, 'activation_hook' ) );
@@ -290,9 +308,7 @@ class taxonomy_dropdown_widget_plugin {
 		return $options_sanitized;
 	}
 }
-global $taxonomy_dropdown_widget_plugin;
-if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
-	$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
+$GLOBALS['taxonomy_dropdown_widget_plugin'] = taxonomy_dropdown_widget_plugin::get_instance();
 
 /**
  ** TAXONOMY DROPDOWN WIDGET
