@@ -383,16 +383,16 @@ class taxonomy_dropdown_widget extends WP_Widget {
 		// Widget
 		if ( $widget = $this->plugin->render_dropdown( $instance, $this->number ) ) {
 			// Wrapper and title
-			$output = $before_widget;
+			$output = $before_widget . "\r\n";
 
 			if ( ! empty( $title ) )
-				$output .= $before_title . apply_filters( 'taxonomy_dropdown_widget_title', '<label for="taxonomy_dropdown_widget_dropdown_' . $this->number . '">' . $title . '</label>', $this->number ) . $after_title;
+				$output .= $before_title . apply_filters( 'taxonomy_dropdown_widget_title', '<label for="taxonomy_dropdown_widget_dropdown_' . $this->number . '">' . $title . '</label>', $this->number ) . $after_title . "\r\n";
 
 			// Widget
-			$output .= $widget;
+			$output .= $widget . "\r\n";
 
 			// Wrapper
-			$output .= $after_widget;
+			$output .= $after_widget . "\r\n";
 
 			echo $output;
 		}
