@@ -34,7 +34,7 @@ class taxonomy_dropdown_widget_plugin {
 	/**
 	 * Class variables
 	 */
-	var $option_defaults = array(
+	protected $option_defaults = array(
 		'taxonomy' => 'post_tag',
 		'select_name' => 'Select Tag',
 		'max_name_length' => 0,
