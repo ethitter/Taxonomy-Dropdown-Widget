@@ -85,7 +85,7 @@ class taxonomy_dropdown_widget_plugin {
 		if ( 'option_defaults' == $var )
 			return $this->option_defaults;
 
-		return false;
+		return null;
 	}
 
 	/**
