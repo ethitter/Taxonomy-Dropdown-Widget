@@ -78,10 +78,14 @@ class taxonomy_dropdown_widget_plugin {
 
 	/*
 	 * Remove options related to plugin versions older than 2.0.
+	 * @uses add_filter
 	 * @uses delete_option
 	 * @return null
 	 */
 	function cleanup() {
+		if ( ! add_filter( 'taxonomy_dropdown_widget_run_cleanup', true ) )
+			return;
+
 		$legacy_options = array(
 			'widget_TagDropdown',
 			'widget_TagDropdown_exclude',
