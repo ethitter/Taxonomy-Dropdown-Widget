@@ -178,7 +178,7 @@ class taxonomy_dropdown_widget_plugin {
 		if ( $limit )
 			$options[ 'number' ] = $limit;
 
-		if ( !empty( $incexc_ids ) )
+		if ( ! empty( $incexc_ids ) )
 			$options[ $incexc ] = $incexc_ids;
 
 		$options = apply_filters( 'taxonomy_dropdown_widget_options', $options, $id );
@@ -187,11 +187,11 @@ class taxonomy_dropdown_widget_plugin {
 		//Get terms
 		$terms = get_terms( $taxonomy, $options );
 
-		if ( !is_wp_error( $terms ) && is_array( $terms ) && !empty( $terms ) ) {
+		if ( ! is_wp_error( $terms ) && is_array( $terms ) && ! empty( $terms ) ) {
 			//CSS ID
 			if ( is_int( $id ) )
 				$css_id = ' id="taxonomy_dropdown_widget_dropdown_' . $id . '"';
-			elseif ( is_string( $id ) && !empty( $id ) )
+			elseif ( is_string( $id ) && ! empty( $id ) )
 				$css_id = ' id="' . $id . '"';
 
 			//Start dropdown
@@ -255,7 +255,7 @@ class taxonomy_dropdown_widget_plugin {
 
 		if ( is_array( $options ) ) {
 			foreach ( $keys as $key ) {
-				if ( !array_key_exists( $key, $options ) )
+				if ( ! array_key_exists( $key, $options ) )
 					continue;
 
 				$value = $options[ $key ];
@@ -271,7 +271,7 @@ class taxonomy_dropdown_widget_plugin {
 					case 'cutoff':
 						$value = sanitize_text_field( $value );
 
-						if ( !empty( $value ) || $key == 'title' )
+						if ( ! empty( $value ) || $key == 'title' )
 							$options_sanitized[ $key ] = $value;
 					break;
 
@@ -385,7 +385,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
 			// Wrapper and title
 			$output = $before_widget;
 
-			if ( !empty( $title ) )
+			if ( ! empty( $title ) )
 				$output .= $before_title . apply_filters( 'taxonomy_dropdown_widget_title', '<label for="taxonomy_dropdown_widget_dropdown_' . $this->number . '">' . $title . '</label>', $this->number ) . $after_title;
 
 			// Widget
@@ -564,7 +564,7 @@ function taxonomy_dropdown_widget( $options = array(), $id = '' ) {
  ** LEGACY FUNCTIONS FOR BACKWARDS COMPATIBILITY
  **/
 
-if ( !function_exists( 'generateTagDropdown' ) ):
+if ( ! function_exists( 'generateTagDropdown' ) ):
 	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.7
@@ -582,7 +582,7 @@ if ( !function_exists( 'generateTagDropdown' ) ):
 	}
 endif;
 
-if ( !function_exists( 'TDW_direct' ) ):
+if ( ! function_exists( 'TDW_direct' ) ):
 	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.6
@@ -611,7 +611,7 @@ if ( !function_exists( 'TDW_direct' ) ):
 	}
 endif;
 
-if ( !function_exists( 'makeTagDropdown' ) ):
+if ( ! function_exists( 'makeTagDropdown' ) ):
 	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.3
