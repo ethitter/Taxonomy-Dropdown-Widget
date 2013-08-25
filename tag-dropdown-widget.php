@@ -628,6 +628,5 @@ if ( ! function_exists( 'makeTagDropdown' ) ):
 		);
 
 		echo '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 1.6 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget` instead. -->' . taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, 'legacy_mtd' );
-}
+	}
 endif;
-?>
