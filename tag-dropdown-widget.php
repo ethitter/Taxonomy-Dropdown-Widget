@@ -195,9 +195,9 @@ class taxonomy_dropdown_widget_plugin {
 				$css_id = ' id="' . $id . '"';
 
 			//Start dropdown
-			$output = '<select name="taxonomy_dropdown_widget_dropdown_' . $id . '" class="taxonomy_dropdown_widget_dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;"' . ( isset( $css_id ) ? $css_id : '' ) . '>';
+			$output = '<select name="taxonomy_dropdown_widget_dropdown_' . $id . '" class="taxonomy_dropdown_widget_dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;"' . ( isset( $css_id ) ? $css_id : '' ) . '>' . "\r\n";
 
-			$output .= '<option value="">' . $select_name . '</option>';
+			$output .= "\t" . '<option value="">' . $select_name . '</option>' . "\r\n";
 
 			//Populate dropdown
 			$i = 1;
@@ -209,7 +209,7 @@ class taxonomy_dropdown_widget_plugin {
 				$current = is_tag() ? is_tag( $term->slug ) : is_tax( $taxonomy, $term->slug );
 
 				//Open option tag
-				$output .= '<option value="' . esc_url( get_term_link( (int)$term->term_id, $taxonomy ) ) . '"' . ( selected( $current, true , false ) ) . '>';
+				$output .= "\t" . '<option value="' . esc_url( get_term_link( (int)$term->term_id, $taxonomy ) ) . '"' . ( selected( $current, true , false ) ) . '>';
 
 				//Tag name
 				$name = esc_attr( $term->name );
@@ -222,13 +222,13 @@ class taxonomy_dropdown_widget_plugin {
 					$output .= ' (' . intval( $term->count ) . ')';
 
 				//Close option tag
-				$output .= '</option>';
+				$output .= '</option>' . "\r\n";
 
 				$i++;
 			}
 
 			//End dropdown
-			$output .= '</select>';
+			$output .= '</select>' . "\r\n";
 
 			return $output;
 		} else {
