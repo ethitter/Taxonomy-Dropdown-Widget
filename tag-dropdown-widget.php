@@ -549,18 +549,14 @@ class taxonomy_dropdown_widget extends WP_Widget {
  * Render taxonomy dropdown
  * @param array $options
  * @param string|int $id
- * @uses taxonomy_dropdown_widget_plugin
+ * @uses taxonomy_dropdown_widget_plugin::get_instance
  * @return string or false
  */
 function taxonomy_dropdown_widget( $options = array(), $id = '' ) {
-	global $taxonomy_dropdown_widget_plugin;
-	if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
-		$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
+	// Sanitize options
+	$options = taxonomy_dropdown_widget_plugin::get_instance()->sanitize_options( $options );
 
-	//Sanitize options
-	$options = $taxonomy_dropdown_widget_plugin->sanitize_options( $options );
-
-	return $taxonomy_dropdown_widget_plugin->render_dropdown( $options, $id );
+	return taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, $id );
 }
 
 /**
@@ -571,18 +567,14 @@ if ( !function_exists( 'generateTagDropdown' ) ):
 	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.7
-	 * @uses taxonomy_dropdown_widget_plugin
+	 * @uses taxonomy_dropdown_widget_plugin::get_instance
 	 * @return string or false
 	 */
 	function generateTagDropdown( $args ) {
-		global $taxonomy_dropdown_widget_plugin;
-		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
-			$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
+		// Sanitize options
+		$options = taxonomy_dropdown_widget_plugin::get_instance()->sanitize_options( $args );
 
-		//Sanitize options
-		$options = $taxonomy_dropdown_widget_plugin->sanitize_options( $args );
-
-		return '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 2.0 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget` instead. -->' . $taxonomy_dropdown_widget_plugin->render_dropdown( $options, 'legacy_gtd' );
+		return '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 2.0 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget` instead. -->' . taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, 'legacy_gtd' );
 	}
 endif;
 
@@ -590,29 +582,25 @@ if ( !function_exists( 'TDW_direct' ) ):
 	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.6
-	 * @uses taxonomy_dropdown_widget_plugin
+	 * @uses taxonomy_dropdown_widget_plugin::get_instance
 	 * @return string or false
 	 */
 	function TDW_direct( $limit = false, $count = false, $exclude = false ) {
-		global $taxonomy_dropdown_widget_plugin;
-		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
-			$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
-
-		//Build options array from function parameters
+		// Build options array from function parameters
 		$options = array(
 			'max_name_length' => $limit,
-			'post_count' => $count
+			'post_count'      => $count
 		);
 
 		if ( $exclude ) {
-			$options[ 'incexc' ] = 'exclude';
+			$options[ 'incexc' ]     = 'exclude';
 			$options[ 'incexc_ids' ] = $exclude;
 		}
 
 		//Sanitize options
-		$options = $taxonomy_dropdown_widget_plugin->sanitize_options( $options );
+		$options = taxonomy_dropdown_widget_plugin::get_instance()->sanitize_options( $options );
 
-		echo '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 1.7 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget` instead. -->' . $taxonomy_dropdown_widget_plugin->render_dropdown( $options, 'legacy_tdw' );
+		echo '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 1.7 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget` instead. -->' . taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, 'legacy_tdw' );
 	}
 endif;
 
@@ -620,20 +608,16 @@ if ( !function_exists( 'makeTagDropdown' ) ):
 	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.3
-	 * @uses taxonomy_dropdown_widget_plugin
+	 * @uses taxonomy_dropdown_widget_plugin::get_instance
 	 * @return string or false
 	 */
 	function makeTagDropdown( $limit = false ) {
-		global $taxonomy_dropdown_widget_plugin;
-		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
-			$taxonomy_dropdown_widget_plugin = new taxonomy_dropdown_widget_plugin;
-
 		//Sanitize options
 		$options = array(
 			'max_name_length' => intval( $limit )
 		);
 
-		echo '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 1.6 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget` instead. -->' . $taxonomy_dropdown_widget_plugin->render_dropdown( $options, 'legacy_mtd' );
+		echo '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 1.6 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget` instead. -->' . taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, 'legacy_mtd' );
 }
 endif;
 ?>
