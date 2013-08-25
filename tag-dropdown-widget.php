@@ -69,7 +69,7 @@ class taxonomy_dropdown_widget_plugin {
 	 * @uses register_deactivation_hook
 	 * @return null
 	 */
-	private function __construct() {
+	protected function __construct() {
 		add_action( 'widgets_init', array( $this, 'action_widgets_init' ) );
 
 		register_activation_hook( __FILE__, array( $this, 'activation_hook' ) );
@@ -82,7 +82,7 @@ class taxonomy_dropdown_widget_plugin {
 	 * @hook activation
 	 * @return null
 	 */
-	function activation_hook() {
+	public function activation_hook() {
 		$this->cleanup();
 	}
 
@@ -92,7 +92,7 @@ class taxonomy_dropdown_widget_plugin {
 	 * @hook deactivation
 	 * @return null
 	 */
-	function deactivation_hook() {
+	public deactivation_hook() {
 		$this->cleanup();
 	}
 
@@ -102,7 +102,7 @@ class taxonomy_dropdown_widget_plugin {
 	 * @uses delete_option
 	 * @return null
 	 */
-	function cleanup() {
+	private function cleanup() {
 		if ( ! add_filter( 'taxonomy_dropdown_widget_run_cleanup', true ) )
 			return;
 
@@ -124,7 +124,7 @@ class taxonomy_dropdown_widget_plugin {
 	 * @action widgets_init
 	 * @return null
 	 */
-	function action_widgets_init() {
+	public function action_widgets_init() {
 		if ( class_exists( 'taxonomy_dropdown_widget' ) )
 			register_widget( 'taxonomy_dropdown_widget' );
 	}
@@ -145,7 +145,7 @@ class taxonomy_dropdown_widget_plugin {
 	 * @uses selected
 	 * @return string or false
 	 */
-	function render_dropdown( $options, $id = false ) {
+	public function render_dropdown( $options, $id = false ) {
 		$options = wp_parse_args( $options, $this->option_defaults );
 		extract( $options );
 
@@ -233,7 +233,7 @@ class taxonomy_dropdown_widget_plugin {
 	 * @uses wp_parse_args
 	 * @return array
 	 */
-	function sanitize_options( $options ) {
+	public function sanitize_options( $options ) {
 		$options_sanitized = array(
 			'hide_empty' => true,
 			'post_counts' => false
@@ -341,7 +341,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
 	 * @uses taxonomy_dropdown_widget_plugin
 	 * @return null
 	 */
-	function taxonomy_dropdown_widget() {
+	public function __construct() {
 		$this->WP_Widget( false, 'Taxonomy Dropdown Widget', array( 'description' => 'Displays selected non-hierarchical taxonomy terms in a dropdown list.' ) );
 
 		//Load plugin class and populate defaults
@@ -362,7 +362,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
 	 * @uses apply_filters
 	 * @return string or null
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		//Get plugin class for default options and to build widget
 		global $taxonomy_dropdown_widget_plugin;
 		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
@@ -398,7 +398,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
 	 * @uses taxonomy_dropdown_widget_plugin
 	 * @return array
 	 */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		//Get plugin class for sanitization function
 		global $taxonomy_dropdown_widget_plugin;
 		if ( !is_a( $taxonomy_dropdown_widget_plugin, 'taxonomy_dropdown_widget_plugin' ) )
@@ -420,7 +420,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
 	 * @uses checked
 	 * @return string
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 		//Get options
 		$options = wp_parse_args( $instance, $this->defaults );
 		extract( $options );
