@@ -77,6 +77,18 @@ class taxonomy_dropdown_widget_plugin {
 	}
 
 	/**
+	 * Allow access to certain variables that were previously public
+	 *
+	 * @return mixed
+	 */
+	public function __get( $var ) {
+		if ( 'option_defaults' == $var )
+			return $this->option_defaults;
+
+		return false;
+	}
+
+	/**
 	 * Run plugin cleanup on activation
 	 * @uses this::cleanup
 	 * @hook activation
