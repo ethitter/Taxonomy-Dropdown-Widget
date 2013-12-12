@@ -3,7 +3,7 @@ Contributors: ethitter
 Donate link: http://www.ethitter.com/plugins/taxonomy-dropdown-widget/
 Tags: tag, tags, taxonomy, sidebar, widget, widgets, dropdown, drop down
 Requires at least: 2.8
-Tested up to: 3.6
+Tested up to: 3.8
 Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
