@@ -606,7 +606,7 @@ if ( ! function_exists( 'generateTagDropdown' ) ) :
 		// Sanitize options
 		$options = taxonomy_dropdown_widget_plugin::get_instance()->sanitize_options( $args );
 
-		return '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 2.0 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget` instead. -->' . taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, 'legacy_gtd' );
+		return '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 2.0 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget()` instead. -->' . "\r\n" . taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, 'legacy_gtd' );
 	}
 endif;
 
@@ -635,7 +635,7 @@ if ( ! function_exists( 'TDW_direct' ) ) :
 		// Sanitize options
 		$options = taxonomy_dropdown_widget_plugin::get_instance()->sanitize_options( $options );
 
-		echo '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 1.7 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget` instead. -->' . taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, 'legacy_tdw' );
+		echo '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 1.7 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget()` instead. -->' . "\r\n" . taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, 'legacy_tdw' );
 	}
 endif;
 
@@ -655,6 +655,6 @@ if ( ! function_exists( 'makeTagDropdown' ) ) :
 			'max_name_length' => intval( $limit ),
 		);
 
-		echo '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 1.6 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget` instead. -->' . taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, 'legacy_mtd' );
+		echo '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 1.6 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget()` instead. -->' . "\r\n" . taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, 'legacy_mtd' );
 	}
 endif;
