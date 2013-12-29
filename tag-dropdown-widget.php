@@ -257,7 +257,7 @@ class taxonomy_dropdown_widget_plugin {
 
 	/**
 	 * Sanitize plugin options
-	 * @param array $options
+	 * @param array|string $options
 	 * @uses taxonomy_exists
 	 * @uses sanitize_text_field
 	 * @uses absint
@@ -265,6 +265,12 @@ class taxonomy_dropdown_widget_plugin {
 	 * @return array
 	 */
 	public function sanitize_options( $options ) {
+		// WP supports strings for arguments in place of arrays.
+		// Match the expectation, though arrays are preferred.
+		if ( is_string( $options ) ) {
+			wp_parse_str( $options, $options );
+		}
+
 		$options_sanitized = array(
 			'hide_empty'  => true,
 			'post_counts' => false,
