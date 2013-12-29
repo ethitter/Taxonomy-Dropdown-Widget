@@ -213,7 +213,10 @@ class taxonomy_dropdown_widget_plugin {
 			// Start dropdown
 			$output = '<select name="taxonomy_dropdown_widget_dropdown_' . esc_attr( $id ) . '" class="taxonomy_dropdown_widget_dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;"' . $css_id . '>' . "\r\n";
 
-			$output .= "\t" . '<option value="">' . esc_html( $options['select_name'] ) . '</option>' . "\r\n";
+			$default = apply_filters( 'taxonomy_dropdown_widget_dropdown_default_item', '<option value="">' . esc_html( $options['select_name'] ) . '</option>', $id, $options, $terms_options, $terms );
+			if ( ! empty( $default ) ) {
+				$output .= "\t" . $default . "\r\n";
+			}
 
 			// Populate dropdown
 			$i = 1;
@@ -226,28 +229,37 @@ class taxonomy_dropdown_widget_plugin {
 				$current = is_tag() ? is_tag( $term->slug ) : is_tax( $term->taxonomy, $term->slug );
 
 				// Open option tag
-				$output .= "\t" . '<option value="' . esc_url( get_term_link( (int) $term->term_id, $term->taxonomy ) ) . '"' . ( selected( $current, true , false ) ) . '>';
+				$item = '<option value="' . esc_url( get_term_link( (int) $term->term_id, $term->taxonomy ) ) . '"' . ( selected( $current, true, false ) ) . '>';
 
 				// Tag name
 				$name = esc_attr( $term->name );
 				if ( $options['max_name_length'] > 0 && strlen( $name ) > $options['max_name_length'] ) {
 					$name = substr( $name, 0, $options['max_name_length'] ) . $options['cutoff'];
 				}
-				$output .= $name;
+				$item .= $name;
 
 				// Count
 				if ( $options['post_counts'] ) {
-					$output .= ' (' . intval( $term->count ) . ')';
+					$item .= ' (' . intval( $term->count ) . ')';
 				}
 
 				// Close option tag
-				$output .= '</option>' . "\r\n";
+				$item .= '</option>';
+
+				$item = apply_filters( 'taxonomy_dropdown_widget_dropdown_single_item', $item, $term, $id, $options, $terms_options, $terms );
+				if ( ! empty( $item ) ) {
+					$output .= "\t" . $item . "\r\n";
+				}
 
 				$i++;
 			}
 
 			// End dropdown
 			$output .= '</select>' . "\r\n";
+			$output = apply_filters( 'taxonomy_dropdown_widget_dropdown', $output, $id, $options, $terms_options, $terms );
+
+			// Depending on size of list, `$terms` could be quite large.
+			unset( $terms );
 
 			return $output;
 		} else {
