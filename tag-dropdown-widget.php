@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Taxonomy Dropdown Widget
-Plugin URI: http://www.ethitter.com/plugins/taxonomy-dropdown-widget/
+Plugin URI: https://ethitter.com/plugins/taxonomy-dropdown-widget/
 Description: Creates a dropdown list of non-hierarchical taxonomies as an alternative to the term (tag) cloud. Widget provides numerous options to tailor the output to fit your site. Dropdown function can also be called directly for use outside of the widget. Formerly known as <strong><em>Tag Dropdown Widget</em></strong>.
 Author: Erick Hitter
 Version: 2.1
-Author URI: http://www.ethitter.com/
+Author URI: https://ethitter.com/
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
