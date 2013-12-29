@@ -57,10 +57,17 @@ class taxonomy_dropdown_widget_plugin {
 	public static function get_instance() {
 		if ( ! is_a( self::$__instance, __CLASS__ ) ) {
 			self::$__instance = new self;
+
+			self::$__instance->setup();
 		}
 
 		return self::$__instance;
 	}
+
+	/**
+	 * Silence is golden!
+	 */
+	private function __construct() {}
 
 	/**
 	 * Register actions and activation/deactivation hooks
@@ -69,7 +76,7 @@ class taxonomy_dropdown_widget_plugin {
 	 * @uses register_deactivation_hook
 	 * @return null
 	 */
-	protected function __construct() {
+	protected function setup() {
 		add_action( 'widgets_init', array( $this, 'action_widgets_init' ) );
 
 		register_activation_hook( __FILE__, array( $this, 'activation_hook' ) );
