@@ -4,7 +4,7 @@ Donate link: https://ethitter.com/plugins/taxonomy-dropdown-widget/
 Tags: tag, tags, taxonomy, sidebar, widget, widgets, dropdown, drop down
 Requires at least: 2.8
 Tested up to: 3.8
-Stable tag: 2.0.3
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,9 +16,11 @@ Creates dropdown lists of non-hierarchical taxonomies (such as `post tags`) as a
 
 Numerous formatting options are provided, including maximum numbers of terms, term order, truncating of term names, and more.
 
-Using the `taxonomy_dropdown_widget` function, users can generate dropdowns for use outside of the included widget.
+Using the `taxonomy_dropdown_widget()` function, users can generate dropdowns for use outside of the included widget.
 
 This plugin was formerly known as the `Tag Dropdown Widget`. It was completely rewritten for version 2.0.
+
+**Follow and contribute to development on GitHub at https://github.com/ethitter/Taxonomy-Dropdown-Widget.**
 
 == Installation ==
 
@@ -60,7 +62,7 @@ Insert the function `<?php if( function_exists( 'taxonomy_dropdown_widget' ) ) e
 
 = Why are the makeTagDropdown(), TDW_direct(), and generateTagDropdown() functions deprecated? =
 
-Version 2.0 represents a complete rewrite of the original Tag Dropdown Widget plugin. As part of the rewrite, all prior functions for generating tag dropdowns were deprecated, or marked as obsolete, because they are unable to access the full complement of features introduced in version 2.0. While the functions still exist, their capabilities are extremely limited and they should not be replaced with `taxonomy_dropdown_widget()`.
+Version 2.0 represents a complete rewrite of the original Tag Dropdown Widget plugin. As part of the rewrite, all prior functions for generating tag dropdowns were deprecated, or marked as obsolete, because they are unable to access the full complement of features introduced in version 2.0. While the functions still exist, their capabilities are extremely limited and they should now be replaced with `taxonomy_dropdown_widget()`.
 
 = Where do I obtain a term's ID for use with the inclusion or exclusion options? =
 
@@ -70,11 +72,18 @@ You can also obtain the term ID by clicking the edit link below any term's name 
 
 = I'd like more control over the tags shown in the dropdown. Is this possible? =
 
-This plugin relies on WordPress' `get_terms` function (http://codex.wordpress.org/Function_Reference/get_terms). To modify the arguments passed to this function, use the `taxonomy_dropdown_widget_options` filter to specify any of the arguments discussed in the Codex page for `get_terms`.
+This plugin relies on WordPress' `get_terms()` function (http://codex.wordpress.org/Function_Reference/get_terms). To modify the arguments passed to this function, use the `taxonomy_dropdown_widget_options` filter to specify any of the arguments discussed in the Codex page for `get_terms()`.
 
-To make targeting a specific filter reference possible should you use multiple instances of the dropdown (multiple widgets, use of the `taxonomy_dropdown_widget` function, or some combination thereof), the filter provides a second argument, `$id`, that is either the numeric ID of the widget's instance or the string provided as the second argument to `taxonomy_dropdown_widget`.
+To make targeting a specific filter reference possible should you use multiple instances of the dropdown (multiple widgets, use of the `taxonomy_dropdown_widget()` function, or some combination thereof), the filter provides a second argument, `$id`, that is either the numeric ID of the widget's instance or the string provided as the second argument to `taxonomy_dropdown_widget()`.
 
 == Changelog ==
+
+= 2.1 =
+* Implement plugin as a singleton for proper reusability.
+* Improve adherence to WordPress coding standards.
+* Improve translatability of plugin.
+* Generally clean up code for better readability and clarity.
+* Eliminates all uses of `extract()` for clarity's sake.
 
 = 2.0.3 =
 * Correct problem in WordPress 3.3 and higher that resulted in an empty taxonomy dropdown.
@@ -103,7 +112,7 @@ To make targeting a specific filter reference possible should you use multiple i
 * Widget admin is translation-ready.
 
 = 1.7 =
-* Replaced `TDW_direct` and `makeTagDropdown` with `generateTagDropdown`.
+* Replaced `TDW_direct()` and `makeTagDropdown()` with `generateTagDropdown()`.
 * Recoded entire plugin to simplify and clean up overall functionality.
 * Switched exclude functionality to use tag ids rather than tag slugs.
 * Added numerous additional options to the widget panel based on user response, as detailed below.
@@ -116,8 +125,8 @@ To make targeting a specific filter reference possible should you use multiple i
 * Added the `TagDropdown_get_tags` filter to provide advanced users the ability to modify the arguments passed to WordPress' `get_tags` function. Using this filter, the trimming, trimming indicator, and count display settings are still obeyed.
 
 = 1.6 =
-* Add `TDW_direct` function.
-* Add count and exclusion options to new direct-implementation function (`TDW_direct`).
+* Add `TDW_direct()` function.
+* Add count and exclusion options to new direct-implementation function (`TDW_direct()`).
 * Corrects two XHTML validation errors.
 
 = 1.5.2 =
@@ -143,6 +152,9 @@ To make targeting a specific filter reference possible should you use multiple i
 
 == Upgrade Notice ==
 
+= 2.1 =
+While no major functional changes are included in this release, the plugin itself is better-written and users are encouraged to upgrade.
+
 = 2.0.3 =
 Corrects a problem in WordPress 3.3 and higher that resulted in an empty taxonomy dropdown. Also removes all uses of PHP short tags.
 
@@ -162,7 +174,7 @@ Fixes minor bug that appended cutoff indicators when unnecessary.
 The plugin was renamed, completely rewritten, and drops support for WordPress 2.7 and earlier. Upgrading will delete all of your existing widgets; see the FAQ for an explanation. Review the changelog and FAQ for more information.
 
 = 1.7 =
-This is a major revision to the Tag Dropdown Widget. Before upgrading, please be aware that both `TDW_direct` and `makeTagDropdown` are deprecated functions that will be eliminated in version 2 of this plugin. Additionally, tags can no longer be excluded based on slug. See changelog for full details.
+This is a major revision to the Tag Dropdown Widget. Before upgrading, please be aware that both `TDW_direct()` and `makeTagDropdown()` are now deprecated functions. Additionally, tags can no longer be excluded based on slug. See changelog for full details.
 
 = 1.6 =
-Replaces `makeTagDropdown` with `TDW_direct` function, adds post count and exclusion options to direct-implementation function. `makeTagDropdown` function retained for backwards compatibility, but will be phased out in a future release. Corrects two XHTML validation errors.
+Replaces `makeTagDropdown()` with `TDW_direct()` function, adds post count and exclusion options to direct-implementation function. `makeTagDropdown()` function retained for backwards compatibility. Corrects two XHTML validation errors.
