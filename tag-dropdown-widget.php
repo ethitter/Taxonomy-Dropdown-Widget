@@ -191,7 +191,7 @@ class taxonomy_dropdown_widget_plugin {
 		}
 
 		if ( ! empty( $options['incexc_ids'] ) ) {
-			$terms_options[ $incexc ] = $options['incexc_ids'];
+			$terms_options[ $options['incexc'] ] = $options['incexc_ids'];
 		}
 
 		$terms_options = apply_filters( 'taxonomy_dropdown_widget_options', $terms_options, $id );
