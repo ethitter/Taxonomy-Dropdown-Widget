@@ -475,7 +475,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e( 'Taxonomy' ); ?>:</label><br />
 			<select name="<?php echo $this->get_field_name( 'taxonomy' ); ?>" id="<?php echo $this->get_field_id( 'taxonomy' ); ?>">
-				<?php foreach ( $taxonomies as $tax ): ?>
+				<?php foreach ( $taxonomies as $tax ) : ?>
 					<option value="<?php echo esc_attr( $tax->name ); ?>"<?php selected( $tax->name, $taxonomy, true ); ?>><?php echo $tax->labels->name; ?></option>
 				<?php endforeach; ?>
 			</select>
@@ -595,7 +595,7 @@ function taxonomy_dropdown_widget( $options = array(), $id = '' ) {
  ** LEGACY FUNCTIONS FOR BACKWARDS COMPATIBILITY
  **/
 
-if ( ! function_exists( 'generateTagDropdown' ) ):
+if ( ! function_exists( 'generateTagDropdown' ) ) :
 	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.7
@@ -613,7 +613,7 @@ if ( ! function_exists( 'generateTagDropdown' ) ):
 	}
 endif;
 
-if ( ! function_exists( 'TDW_direct' ) ):
+if ( ! function_exists( 'TDW_direct' ) ) :
 	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.6
@@ -642,7 +642,7 @@ if ( ! function_exists( 'TDW_direct' ) ):
 	}
 endif;
 
-if ( ! function_exists( 'makeTagDropdown' ) ):
+if ( ! function_exists( 'makeTagDropdown' ) ) :
 	/**
 	 * Build tag dropdown based on provided arguments
 	 * @since 1.3
