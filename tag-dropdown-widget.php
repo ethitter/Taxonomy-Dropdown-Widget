@@ -89,8 +89,9 @@ class taxonomy_dropdown_widget_plugin {
 	 * @return mixed
 	 */
 	public function __get( $var ) {
-		if ( 'option_defaults' == $var )
+		if ( 'option_defaults' == $var ) {
 			return $this->option_defaults;
+		}
 
 		return null;
 	}
@@ -122,8 +123,9 @@ class taxonomy_dropdown_widget_plugin {
 	 * @return null
 	 */
 	private function cleanup() {
-		if ( ! add_filter( 'taxonomy_dropdown_widget_run_cleanup', true ) )
+		if ( ! add_filter( 'taxonomy_dropdown_widget_run_cleanup', true ) ) {
 			return;
+		}
 
 		// Remove unused options
 		$legacy_options = array(
@@ -184,11 +186,13 @@ class taxonomy_dropdown_widget_plugin {
 			'hierarchical' => false,
 		);
 
-		if ( $options['limit'] )
+		if ( $options['limit'] ) {
 			$terms_options[ 'number' ] = $options['limit'];
+		}
 
-		if ( ! empty( $options['incexc_ids'] ) )
+		if ( ! empty( $options['incexc_ids'] ) ) {
 			$terms_options[ $incexc ] = $options['incexc_ids'];
+		}
 
 		$terms_options = apply_filters( 'taxonomy_dropdown_widget_options', $terms_options, $id );
 		$terms_options = apply_filters( 'TagDropdown_get_tags', $terms_options );
@@ -198,12 +202,13 @@ class taxonomy_dropdown_widget_plugin {
 
 		if ( is_array( $terms ) && ! empty( $terms ) ) {
 			// Determine CSS ID
-			if ( is_int( $id ) )
+			if ( is_int( $id ) ) {
 				$css_id = ' id="taxonomy_dropdown_widget_dropdown_' . $id . '"';
-			elseif ( ! empty( $id ) )
+			} elseif ( ! empty( $id ) ) {
 				$css_id = ' id="' . esc_attr( $id ) . '"';
-			else
+			} else {
 				$css_id = '';
+			}
 
 			// Start dropdown
 			$output = '<select name="taxonomy_dropdown_widget_dropdown_' . esc_attr( $id ) . '" class="taxonomy_dropdown_widget_dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;"' . $css_id . '>' . "\r\n";
@@ -213,8 +218,9 @@ class taxonomy_dropdown_widget_plugin {
 			// Populate dropdown
 			$i = 1;
 			foreach ( $terms as $term ) {
-				if ( $options['threshold'] > 0 && $term->count < $options['threshold'] )
+				if ( $options['threshold'] > 0 && $term->count < $options['threshold'] ) {
 					continue;
+				}
 
 				// Set selected attribute if on an archive page for the current term
 				$current = is_tag() ? is_tag( $term->slug ) : is_tax( $term->taxonomy, $term->slug );
@@ -224,13 +230,15 @@ class taxonomy_dropdown_widget_plugin {
 
 				// Tag name
 				$name = esc_attr( $term->name );
-				if ( $options['max_name_length'] > 0 && strlen( $name ) > $options['max_name_length'] )
+				if ( $options['max_name_length'] > 0 && strlen( $name ) > $options['max_name_length'] ) {
 					$name = substr( $name, 0, $options['max_name_length'] ) . $options['cutoff'];
+				}
 				$output .= $name;
 
 				// Count
-				if ( $options['post_counts'] )
+				if ( $options['post_counts'] ) {
 					$output .= ' (' . intval( $term->count ) . ')';
+				}
 
 				// Close option tag
 				$output .= '</option>' . "\r\n";
@@ -266,15 +274,17 @@ class taxonomy_dropdown_widget_plugin {
 
 		if ( is_array( $options ) ) {
 			foreach ( $keys as $key ) {
-				if ( ! array_key_exists( $key, $options ) )
+				if ( ! array_key_exists( $key, $options ) ) {
 					continue;
+				}
 
 				$value = $options[ $key ];
 
 				switch( $key ) {
 					case 'taxonomy':
-						if ( taxonomy_exists( $value ) )
+						if ( taxonomy_exists( $value ) ) {
 							$options_sanitized[ $key ] = $value;
+						}
 					break;
 
 					case 'title':
@@ -282,8 +292,9 @@ class taxonomy_dropdown_widget_plugin {
 					case 'cutoff':
 						$value = sanitize_text_field( $value );
 
-						if ( ! empty( $value ) || $key == 'title' )
+						if ( ! empty( $value ) || $key == 'title' ) {
 							$options_sanitized[ $key ] = $value;
+						}
 					break;
 
 					case 'max_name_length':
@@ -293,32 +304,37 @@ class taxonomy_dropdown_widget_plugin {
 					break;
 
 					case 'order':
-						if ( $value == 'ASC' || $value == 'DESC' )
+						if ( $value == 'ASC' || $value == 'DESC' ) {
 							$options_sanitized[ $key ] = $value;
+						}
 					break;
 
 					case 'orderby':
-						if ( $value == 'name' || $value == 'count' )
+						if ( $value == 'name' || $value == 'count' ) {
 							$options_sanitized[ $key ] = $value;
+						}
 					break;
 
 					case 'incexc':
-						if ( $value == 'include' || $value == 'exclude' )
+						if ( $value == 'include' || $value == 'exclude' ) {
 							$options_sanitized[ $key ] = $value;
+						}
 					break;
 
 					case 'incexc_ids':
 						$options_sanitized[ $key ] = array();
 
-						if ( is_string( $value ) )
+						if ( is_string( $value ) ) {
 							$value = explode( ',', $value );
+						}
 
 						if ( is_array( $value ) ) {
 							foreach ( $value as $term_id ) {
 								$term_id = intval( $term_id );
 
-								if ( $term_id > 0 )
+								if ( $term_id > 0 ) {
 									$options_sanitized[ $key ][] = $term_id;
+								}
 
 								unset( $term_id );
 							}
@@ -373,8 +389,9 @@ class taxonomy_dropdown_widget extends WP_Widget {
 		$this->plugin = taxonomy_dropdown_widget_plugin::get_instance();
 
 		//Load plugin class and populate defaults
-		if ( is_object( $this->plugin ) && is_array( $this->plugin->option_defaults ) )
+		if ( is_object( $this->plugin ) && is_array( $this->plugin->option_defaults ) ) {
 			$this->defaults = array_merge( $this->plugin->option_defaults, $this->defaults );
+		}
 	}
 
 	/**
@@ -396,8 +413,9 @@ class taxonomy_dropdown_widget extends WP_Widget {
 			// Wrapper and title
 			$output = $before_widget . "\r\n";
 
-			if ( ! empty( $title ) )
+			if ( ! empty( $title ) ) {
 				$output .= $before_title . apply_filters( 'taxonomy_dropdown_widget_title', '<label for="taxonomy_dropdown_widget_dropdown_' . $this->number . '">' . $title . '</label>', $this->number ) . $after_title . "\r\n";
+			}
 
 			// Widget
 			$output .= $widget . "\r\n";
@@ -443,11 +461,13 @@ class taxonomy_dropdown_widget extends WP_Widget {
 			'hierarchical' => false,
 		), 'objects' );
 
-		if ( array_key_exists( 'nav_menu', $taxonomies ) )
+		if ( array_key_exists( 'nav_menu', $taxonomies ) ) {
 			unset( $taxonomies[ 'nav_menu' ] );
+		}
 
-		if ( array_key_exists( 'post_format', $taxonomies ) )
+		if ( array_key_exists( 'post_format', $taxonomies ) ) {
 			unset( $taxonomies[ 'post_format' ] );
+		}
 
 	?>
 		<h3><?php _e( 'Basic Settings' ); ?></h3>
