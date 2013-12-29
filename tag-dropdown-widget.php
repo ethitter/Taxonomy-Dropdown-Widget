@@ -281,15 +281,15 @@ class taxonomy_dropdown_widget_plugin {
 				$value = $options[ $key ];
 
 				switch( $key ) {
-					case 'taxonomy':
+					case 'taxonomy' :
 						if ( taxonomy_exists( $value ) ) {
 							$options_sanitized[ $key ] = $value;
 						}
 					break;
 
-					case 'title':
-					case 'select_name':
-					case 'cutoff':
+					case 'title' :
+					case 'select_name' :
+					case 'cutoff' :
 						$value = sanitize_text_field( $value );
 
 						if ( ! empty( $value ) || $key == 'title' ) {
@@ -297,31 +297,31 @@ class taxonomy_dropdown_widget_plugin {
 						}
 					break;
 
-					case 'max_name_length':
-					case 'limit':
-					case 'threshold':
+					case 'max_name_length' :
+					case 'limit' :
+					case 'threshold' :
 						$options_sanitized[ $key ] = absint( $value );
 					break;
 
-					case 'order':
+					case 'order' :
 						if ( $value == 'ASC' || $value == 'DESC' ) {
 							$options_sanitized[ $key ] = $value;
 						}
 					break;
 
-					case 'orderby':
+					case 'orderby' :
 						if ( $value == 'name' || $value == 'count' ) {
 							$options_sanitized[ $key ] = $value;
 						}
 					break;
 
-					case 'incexc':
+					case 'incexc' :
 						if ( $value == 'include' || $value == 'exclude' ) {
 							$options_sanitized[ $key ] = $value;
 						}
 					break;
 
-					case 'incexc_ids':
+					case 'incexc_ids' :
 						$options_sanitized[ $key ] = array();
 
 						if ( is_string( $value ) ) {
@@ -343,12 +343,12 @@ class taxonomy_dropdown_widget_plugin {
 						}
 					break;
 
-					case 'hide_empty':
-					case 'post_counts':
+					case 'hide_empty' :
+					case 'post_counts' :
 						$options_sanitized[ $key ] = (bool)$value;
 					break;
 
-					default:
+					default :
 						continue;
 					break;
 				}
