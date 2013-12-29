@@ -355,7 +355,7 @@ class taxonomy_dropdown_widget_plugin {
 			}
 		}
 
-		//Ensure array contains all keys by parsing against defaults after options are sanitized
+		// Ensure array contains all keys by parsing against defaults after options are sanitized
 		$options_sanitized = wp_parse_args( $options_sanitized, $this->option_defaults );
 
 		return $options_sanitized;
@@ -388,7 +388,7 @@ class taxonomy_dropdown_widget extends WP_Widget {
 		// Shortcut to the main plugin instance from within the widget class
 		$this->plugin = taxonomy_dropdown_widget_plugin::get_instance();
 
-		//Load plugin class and populate defaults
+		// Load plugin class and populate defaults
 		if ( is_object( $this->plugin ) && is_array( $this->plugin->option_defaults ) ) {
 			$this->defaults = array_merge( $this->plugin->option_defaults, $this->defaults );
 		}
@@ -449,10 +449,10 @@ class taxonomy_dropdown_widget extends WP_Widget {
 	 * @return string
 	 */
 	public function form( $instance ) {
-		//Get options
+		// Get options
 		$options = wp_parse_args( $instance, $this->defaults );
 
-		//Get taxonomies and remove certain Core taxonomies that shouldn't be accessed directly.
+		// Get taxonomies and remove certain Core taxonomies that shouldn't be accessed directly.
 		$taxonomies = get_taxonomies( array(
 			'public'       => true,
 			'hierarchical' => false,
@@ -632,7 +632,7 @@ if ( ! function_exists( 'TDW_direct' ) ) :
 			$options[ 'incexc_ids' ] = $exclude;
 		}
 
-		//Sanitize options
+		// Sanitize options
 		$options = taxonomy_dropdown_widget_plugin::get_instance()->sanitize_options( $options );
 
 		echo '<!-- NOTICE: The function used to generate this dropdown list is deprecated as of version 1.7 of Taxonomy Dropdown Widget. You should update your template to use `taxonomy_dropdown_widget` instead. -->' . taxonomy_dropdown_widget_plugin::get_instance()->render_dropdown( $options, 'legacy_tdw' );
