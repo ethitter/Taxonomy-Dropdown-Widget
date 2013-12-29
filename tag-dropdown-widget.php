@@ -118,12 +118,12 @@ class taxonomy_dropdown_widget_plugin {
 
 	/**
 	 * Remove options related to plugin versions older than 2.0.
-	 * @uses add_filter
+	 * @uses apply_filters
 	 * @uses delete_option
 	 * @return null
 	 */
 	private function cleanup() {
-		if ( ! add_filter( 'taxonomy_dropdown_widget_run_cleanup', true ) ) {
+		if ( ! apply_filters( 'taxonomy_dropdown_widget_run_cleanup', true ) ) {
 			return;
 		}
 
