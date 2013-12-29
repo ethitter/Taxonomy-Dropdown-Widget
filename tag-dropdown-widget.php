@@ -361,6 +361,8 @@ class taxonomy_dropdown_widget_plugin {
 		return $options_sanitized;
 	}
 }
+
+// Prior to introduction of singleton, plugin was instantiated in a global. Continuing to do so improves backwards compatibility.
 $GLOBALS['taxonomy_dropdown_widget_plugin'] = taxonomy_dropdown_widget_plugin::get_instance();
 
 /**
