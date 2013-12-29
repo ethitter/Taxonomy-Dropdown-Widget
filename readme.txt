@@ -79,6 +79,7 @@ To make targeting a specific filter reference possible should you use multiple i
 == Changelog ==
 
 = 2.1 =
+* Introduce filters on dropdown and its components for greater customizability.
 * Implement plugin as a singleton for proper reusability.
 * Improve adherence to WordPress coding standards.
 * Improve translatability of plugin.
@@ -153,7 +154,7 @@ To make targeting a specific filter reference possible should you use multiple i
 == Upgrade Notice ==
 
 = 2.1 =
-While no major functional changes are included in this release, the plugin itself is better-written and users are encouraged to upgrade.
+While no major functional changes are included in this release, the plugin itself is better-written and users are encouraged to upgrade. A set of filters are now applied to the dropdown and its components, for greater customizability.
 
 = 2.0.3 =
 Corrects a problem in WordPress 3.3 and higher that resulted in an empty taxonomy dropdown. Also removes all uses of PHP short tags.
