@@ -18,6 +18,8 @@ Numerous formatting options are provided, including maximum numbers of terms, te
 
 Using the `taxonomy_dropdown_widget()` function, users can generate dropdowns for use outside of the included widget.
 
+**Only use version 2.2 or higher with WordPress 4.2 and later releases.** WordPress 4.2 changed how taxonomy information is stored in the database, which directly impacts this plugin's include/exclude term functionality.
+
 This plugin was formerly known as the `Tag Dropdown Widget`. It was completely rewritten for version 2.0.
 
 **Follow and contribute to development on GitHub at https://github.com/ethitter/Taxonomy-Dropdown-Widget.**
