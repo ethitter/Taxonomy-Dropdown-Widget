@@ -4,7 +4,7 @@ Plugin Name: Taxonomy Dropdown Widget
 Plugin URI: https://ethitter.com/plugins/taxonomy-dropdown-widget/
 Description: Creates a dropdown list of non-hierarchical taxonomies as an alternative to the term (tag) cloud. Widget provides numerous options to tailor the output to fit your site. Dropdown function can also be called directly for use outside of the widget. Formerly known as <strong><em>Tag Dropdown Widget</em></strong>.
 Author: Erick Hitter
-Version: 2.1
+Version: 2.2
 Author URI: https://ethitter.com/
 
 This program is free software; you can redistribute it and/or modify
@@ -81,6 +81,8 @@ class taxonomy_dropdown_widget_plugin {
 
 		register_activation_hook( __FILE__, array( $this, 'activation_hook' ) );
 		register_deactivation_hook( __FILE__, array( $this, 'deactivation_hook' ) );
+
+		add_action( 'split_shared_term', array( $this, 'action_split_shared_term' ), 10, 4 );
 	}
 
 	/**
@@ -151,6 +153,64 @@ class taxonomy_dropdown_widget_plugin {
 	 */
 	public function action_widgets_init() {
 		register_widget( 'taxonomy_dropdown_widget' );
+	}
+
+	/**
+	 * Update widget options when terms are split
+	 *
+	 * Starting in WP 4.2, terms that were previously shared will now be split into their own terms when the terms are updated.
+	 * To ensure the widget continues to include/exclude the updated terms, we search widget options on terms split and update stored IDs.
+	 *
+	 * @param int    $old_id   ID of shared term before the split
+	 * @param int    $new_id   ID of new term created after the split
+	 * @param int    $tt_id    Term taxonomy ID of split term
+	 * @param string $taxonomy Taxonomy of the term being split from its shared entry
+	 * @action split_shared_term
+	 * @return null
+	 */
+	public function action_split_shared_term( $old_id, $new_id, $tt_id, $taxonomy ) {
+		// WP provides no utility function for getting widget options, so we go straight to the source
+		$all_widget_options = $_all_widget_options = get_option( 'widget_taxonomy_dropdown_widget', false );
+
+		// Loop through each widget's options and update stored term IDs if they're being split here
+		if ( is_array( $all_widget_options ) && ! empty( $all_widget_options ) ) {
+			foreach ( $all_widget_options as $key => $options ) {
+				// Check if widget needs updating
+				if ( ! is_array( $options ) ) {
+					continue;
+				}
+
+				if ( $options['taxonomy'] !== $taxonomy ) {
+					continue;
+				}
+
+				if ( empty( $options['incexc_ids'] ) ) {
+					continue;
+				}
+
+				// Account for legacy data storage option
+				if ( is_string( $options['incexc_ids'] ) ) {
+					$options['incexc_ids'] = explode( ',', $options['incexc_ids'] );
+					$options['incexc_ids'] = array_map( 'absint', $options['incexc_ids'] );
+					$options['incexc_ids'] = array_filter( $options['incexc_ids'] );
+				}
+
+				// Find stored term to update and do so
+				$key_to_update = array_search( $old_id, $options['incexc_ids'] );
+
+				if ( false === $key_to_update ) {
+					continue;
+				} else {
+					$all_widget_options[ $key ]['incexc_ids'][ $key_to_update ] = $new_id;
+				}
+			}
+		}
+
+		// If the term split was one in a widget option, update the options
+		// Reduces `update_option()` calls if nothing's changed
+		if ( $all_widget_options !== $_all_widget_options ) {
+			update_option( 'widget_taxonomy_dropdown_widget', $all_widget_options );
+		}
 	}
 
 	/**
