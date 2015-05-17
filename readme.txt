@@ -1,6 +1,6 @@
 === Taxonomy Dropdown Widget ===
 Contributors: ethitter
-Donate link: https://ethitter.com/plugins/taxonomy-dropdown-widget/
+Donate link: https://ethitter.com/donate/
 Tags: tag, tags, taxonomy, sidebar, widget, widgets, dropdown, drop down
 Requires at least: 2.8
 Tested up to: 4.2
