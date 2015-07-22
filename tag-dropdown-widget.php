@@ -4,7 +4,7 @@ Plugin Name: Taxonomy Dropdown Widget
 Plugin URI: https://ethitter.com/plugins/taxonomy-dropdown-widget/
 Description: Creates a dropdown list of non-hierarchical taxonomies as an alternative to the term (tag) cloud. Widget provides numerous options to tailor the output to fit your site. Dropdown function can also be called directly for use outside of the widget. Formerly known as <strong><em>Tag Dropdown Widget</em></strong>.
 Author: Erick Hitter
-Version: 2.2
+Version: 2.3
 Author URI: https://ethitter.com/
 
 This program is free software; you can redistribute it and/or modify
@@ -458,12 +458,12 @@ class taxonomy_dropdown_widget extends WP_Widget {
 
 	/**
 	 * Register widget and populate class variables
-	 * @uses this::WP_Widget
+	 * @uses parent::__construct()
 	 * @uses taxonomy_dropdown_widget_plugin::get_instance
 	 * @return null
 	 */
 	public function __construct() {
-		$this->WP_Widget( false, 'Taxonomy Dropdown Widget', array( 'description' => 'Displays selected non-hierarchical taxonomy terms in a dropdown list.' ) );
+		parent::__construct( false, 'Taxonomy Dropdown Widget', array( 'description' => 'Displays selected non-hierarchical taxonomy terms in a dropdown list.' ) );
 
 		// Shortcut to the main plugin instance from within the widget class
 		$this->plugin = taxonomy_dropdown_widget_plugin::get_instance();

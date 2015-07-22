@@ -3,8 +3,8 @@ Contributors: ethitter
 Donate link: https://ethitter.com/donate/
 Tags: tag, tags, taxonomy, sidebar, widget, widgets, dropdown, drop down
 Requires at least: 2.8
-Tested up to: 4.2
-Stable tag: 2.2
+Tested up to: 4.3
+Stable tag: 2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,9 @@ This plugin relies on WordPress' `get_terms()` function (http://codex.wordpress.
 To make targeting a specific filter reference possible should you use multiple instances of the dropdown (multiple widgets, use of the `taxonomy_dropdown_widget()` function, or some combination thereof), the filter provides a second argument, `$id`, that is either the numeric ID of the widget's instance or the string provided as the second argument to `taxonomy_dropdown_widget()`.
 
 == Changelog ==
+
+= 2.3 =
+* Update for WordPress 4.3 by removing PHP4-style widget constructor usage (https://make.wordpress.org/core/2015/07/02/deprecating-php4-style-constructors-in-wordpress-4-3/).
 
 = 2.2 =
 * Update for WordPress 4.2 to handle term splitting in the plugin's include/exclude functionality. Details at https://make.wordpress.org/core/2015/02/16/taxonomy-term-splitting-in-4-2-a-developer-guide/.
@@ -157,6 +160,9 @@ To make targeting a specific filter reference possible should you use multiple i
 * Added the ability to trim tag names when calling the function directly.
 
 == Upgrade Notice ==
+
+= 2.3 =
+Updated for WordPress 4.3. Removed PHP4-style widget constructor usage (https://make.wordpress.org/core/2015/07/02/deprecating-php4-style-constructors-in-wordpress-4-3/).
 
 = 2.2 =
 Updated for WordPress 4.2. Only version 2.2 or higher should be used with WordPress 4.2 or higher, otherwise included/excluded terms may reappear in dropdowns. This is due to WordPress splitting shared terms, as detailed at https://make.wordpress.org/core/2015/02/16/taxonomy-term-splitting-in-4-2-a-developer-guide/.
