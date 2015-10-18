@@ -1,10 +1,10 @@
 === Taxonomy Dropdown Widget ===
-Contributors: ethitter
+Contributors: ethitter, ramiy
 Donate link: https://ethitter.com/donate/
 Tags: tag, tags, taxonomy, sidebar, widget, widgets, dropdown, drop down
 Requires at least: 2.8
 Tested up to: 4.3
-Stable tag: 2.3
+Stable tag: 2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ Using the `taxonomy_dropdown_widget()` function, users can generate dropdowns fo
 
 This plugin was formerly known as the `Tag Dropdown Widget`. It was completely rewritten for version 2.0.
 
-**Follow and contribute to development on GitHub at https://github.com/ethitter/Taxonomy-Dropdown-Widget.**
+**Follow and contribute to development on [GitHub](https://github.com/ethitter/Taxonomy-Dropdown-Widget).**
 
 == Installation ==
 
@@ -80,6 +80,10 @@ To make targeting a specific filter reference possible should you use multiple i
 
 == Changelog ==
 
+= 2.4 =
+* Security - Prevent direct access to php file.
+* Security - Prevent direct access to directory.
+
 = 2.3 =
 * Update for WordPress 4.3 by removing PHP4-style widget constructor usage (https://make.wordpress.org/core/2015/07/02/deprecating-php4-style-constructors-in-wordpress-4-3/).
 
@@ -106,7 +110,6 @@ To make targeting a specific filter reference possible should you use multiple i
 
 = 2.0.0.2 =
 * Fix bug in post count threshold that resulted in no terms being listed.
-
 
 = 2.0.0.1 =
 * Fix bug that appended cutoff indicators when unnecessary.
@@ -160,6 +163,9 @@ To make targeting a specific filter reference possible should you use multiple i
 * Added the ability to trim tag names when calling the function directly.
 
 == Upgrade Notice ==
+
+= 2.4 =
+Security release - Prevent direct access to php file and to the plugin directory.
 
 = 2.3 =
 Updated for WordPress 4.3. Removed PHP4-style widget constructor usage (https://make.wordpress.org/core/2015/07/02/deprecating-php4-style-constructors-in-wordpress-4-3/).
