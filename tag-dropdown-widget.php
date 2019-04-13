@@ -427,7 +427,6 @@ class taxonomy_dropdown_widget_plugin {
 					break;
 
 					default :
-						continue;
 					break;
 				}
 			}
