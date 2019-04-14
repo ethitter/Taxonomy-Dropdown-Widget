@@ -49,8 +49,6 @@ PluginSVN:
   stage: deploy
   image: containers.ethitter.com:443/docker/images/php:7.3
   before_script:
-    - apt-get update
-    - apt-get install -y rsync
     - curl -o ./bin/deploy.sh https://git-cdn.e15r.co/open-source/wp-org-plugin-deploy/raw/master/scripts/deploy.sh
     - chmod +x ./bin/deploy.sh
   script: ./bin/deploy.sh
