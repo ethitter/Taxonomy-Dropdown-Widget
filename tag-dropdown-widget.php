@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile -- legacy code in need of refactoring.
 /*
 Plugin Name: Taxonomy Dropdown Widget
 Plugin URI: https://ethitter.com/plugins/taxonomy-dropdown-widget/
