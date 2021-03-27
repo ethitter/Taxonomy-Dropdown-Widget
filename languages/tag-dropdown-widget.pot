@@ -1,15 +1,15 @@
-# Copyright (C) 2020 Erick Hitter
+# Copyright (C) 2021 Erick Hitter
 # This file is distributed under the same license as the Taxonomy Dropdown Widget package.
 msgid ""
 msgstr ""
 "Project-Id-Version: Taxonomy Dropdown Widget 2.3.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/tag-dropdown-widget\n"
-"POT-Creation-Date: 2020-03-26 17:44:25+00:00\n"
+"POT-Creation-Date: 2021-03-27 21:17:12+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 0.5.4\n"
@@ -25,119 +25,119 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 
-#: tag-dropdown-widget.php:549
+#: tag-dropdown-widget.php:550
 msgid "Basic Settings"
 msgstr ""
 
-#: tag-dropdown-widget.php:552
+#: tag-dropdown-widget.php:553
 msgid "Taxonomy"
 msgstr ""
 
-#: tag-dropdown-widget.php:561
+#: tag-dropdown-widget.php:562
 msgid "Title:"
 msgstr ""
 
-#: tag-dropdown-widget.php:566
+#: tag-dropdown-widget.php:567
 msgid "Default dropdown item:"
 msgstr ""
 
-#: tag-dropdown-widget.php:570
+#: tag-dropdown-widget.php:571
 msgid "Order"
 msgstr ""
 
-#: tag-dropdown-widget.php:573
+#: tag-dropdown-widget.php:574
 msgid "Order terms by:"
 msgstr ""
 
-#: tag-dropdown-widget.php:576
+#: tag-dropdown-widget.php:577
 msgid "Name"
 msgstr ""
 
-#: tag-dropdown-widget.php:579
+#: tag-dropdown-widget.php:580
 msgid "Post count"
 msgstr ""
 
-#: tag-dropdown-widget.php:583
+#: tag-dropdown-widget.php:584
 msgid "Order terms:"
 msgstr ""
 
-#: tag-dropdown-widget.php:586
+#: tag-dropdown-widget.php:587
 msgid "Ascending"
 msgstr ""
 
-#: tag-dropdown-widget.php:589
+#: tag-dropdown-widget.php:590
 msgid "Descending"
 msgstr ""
 
-#: tag-dropdown-widget.php:592
+#: tag-dropdown-widget.php:593
 msgid "Term Display"
 msgstr ""
 
-#: tag-dropdown-widget.php:595
+#: tag-dropdown-widget.php:596
 msgid "Limit number of terms shown to:"
 msgstr ""
 
-#: tag-dropdown-widget.php:597
+#: tag-dropdown-widget.php:598
 msgid "Enter <strong>0</strong> for no limit."
 msgstr ""
 
-#: tag-dropdown-widget.php:601
+#: tag-dropdown-widget.php:602
 msgid "Trim long term names to <em>x</em> characters:</label>"
 msgstr ""
 
-#: tag-dropdown-widget.php:603
+#: tag-dropdown-widget.php:604
 msgid "Enter <strong>0</strong> to show full tag names."
 msgstr ""
 
-#: tag-dropdown-widget.php:607
+#: tag-dropdown-widget.php:608
 msgid "Indicator that term names are trimmed:"
 msgstr ""
 
-#: tag-dropdown-widget.php:609
+#: tag-dropdown-widget.php:610
 msgid "Leave blank to use an elipsis (&hellip;)."
 msgstr ""
 
-#: tag-dropdown-widget.php:614
+#: tag-dropdown-widget.php:615
 msgid "Include terms that aren't assigned to any objects (empty terms)."
 msgstr ""
 
-#: tag-dropdown-widget.php:619
+#: tag-dropdown-widget.php:620
 msgid "Display object (post) counts after term names."
 msgstr ""
 
-#: tag-dropdown-widget.php:622
+#: tag-dropdown-widget.php:623
 msgid "Include/Exclude Terms"
 msgstr ""
 
-#: tag-dropdown-widget.php:625
+#: tag-dropdown-widget.php:626
 msgid "Include/exclude terms:"
 msgstr ""
 
-#: tag-dropdown-widget.php:628
+#: tag-dropdown-widget.php:629
 msgid "Include only the term IDs listed below"
 msgstr ""
 
-#: tag-dropdown-widget.php:631
+#: tag-dropdown-widget.php:632
 msgid "Exclude the term IDs listed below"
 msgstr ""
 
-#: tag-dropdown-widget.php:635
+#: tag-dropdown-widget.php:636
 msgid "Term IDs to include/exclude based on above setting:"
 msgstr ""
 
-#: tag-dropdown-widget.php:637
+#: tag-dropdown-widget.php:638
 msgid "Enter comma-separated list of term IDs."
 msgstr ""
 
-#: tag-dropdown-widget.php:640
+#: tag-dropdown-widget.php:641
 msgid "Advanced"
 msgstr ""
 
-#: tag-dropdown-widget.php:643
+#: tag-dropdown-widget.php:644
 msgid "Show terms assigned to at least this many posts:"
 msgstr ""
 
-#: tag-dropdown-widget.php:645
+#: tag-dropdown-widget.php:646
 msgid "Set to <strong>0</strong> to display all terms matching the above criteria."
 msgstr ""
 
