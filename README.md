@@ -4,7 +4,7 @@
 **Tags:** tag, tags, taxonomy, sidebar, widget, widgets, dropdown, drop down  
 **Requires at least:** 2.8  
 **Tested up to:** 6.0  
-**Stable tag:** 2.3.1  
+**Stable tag:** 2.3.2  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -80,6 +80,9 @@ To make targeting a specific filter reference possible should you use multiple i
 
 ## Changelog ##
 
+### 2.3.2 ###
+* Ready plugin for translation.
+
 ### 2.3.1 ###
 * PHP 7.3 compatibility
 
@@ -109,7 +112,6 @@ To make targeting a specific filter reference possible should you use multiple i
 
 ### 2.0.0.2 ###
 * Fix bug in post count threshold that resulted in no terms being listed.
-
 
 ### 2.0.0.1 ###
 * Fix bug that appended cutoff indicators when unnecessary.
@@ -163,6 +165,9 @@ To make targeting a specific filter reference possible should you use multiple i
 * Added the ability to trim tag names when calling the function directly.
 
 ## Upgrade Notice ##
+
+### 2.3.2 ###
+Readies plugin for translation.
 
 ### 2.3.1 ###
 Now compatible with PHP 7.3.
