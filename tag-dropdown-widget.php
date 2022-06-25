@@ -1,29 +1,29 @@
 <?php
 // phpcs:ignoreFile -- legacy code in need of refactoring.
-/*
-Plugin Name: Taxonomy Dropdown Widget
-Plugin URI: https://ethitter.com/plugins/taxonomy-dropdown-widget/
-Description: Creates a dropdown list of non-hierarchical taxonomies as an alternative to the term (tag) cloud. Widget provides numerous options to tailor the output to fit your site. Dropdown function can also be called directly for use outside of the widget. Formerly known as <strong><em>Tag Dropdown Widget</em></strong>.
-Author: Erick Hitter
-Version: 2.3.1
-Author URI: https://ethitter.com/
-Text Domain: tag-dropdown-widget
-Domain Path: /languages/
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+/**
+ * Plugin Name: Taxonomy Dropdown Widget
+ * Plugin URI: https://ethitter.com/plugins/taxonomy-dropdown-widget/
+ * Description: Creates a dropdown list of non-hierarchical taxonomies as an alternative to the term (tag) cloud. Widget provides numerous options to tailor the output to fit your site. Dropdown function can also be called directly for use outside of the widget. Formerly known as <strong><em>Tag Dropdown Widget</em></strong>.
+ * Author: Erick Hitter
+ * Version: 2.3.2
+ * Author URI: https://ethitter.com/
+ * Text Domain: tag-dropdown-widget
+ * Domain Path: /languages/
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
 
 /**
  ** TAXONOMY DROPDOWN WIDGET PLUGIN
@@ -111,7 +111,7 @@ class taxonomy_dropdown_widget_plugin {
 		load_plugin_textdomain(
 			'tag-dropdown-widget',
 			false,
-			dirname( __FILE__ ) . '/languages/'
+			dirname( plugin_basename( __FILE__ ) ) . '/languages/'
 		);
 	}
 

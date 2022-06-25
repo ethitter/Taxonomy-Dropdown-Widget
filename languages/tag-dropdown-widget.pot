@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Taxonomy Dropdown Widget package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Taxonomy Dropdown Widget 2.3.1\n"
+"Project-Id-Version: Taxonomy Dropdown Widget 2.3.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/tag-dropdown-widget\n"
 "POT-Creation-Date: 2022-06-25 18:24:14+00:00\n"
