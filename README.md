@@ -4,7 +4,7 @@
 **Tags:** tag, tags, taxonomy, sidebar, widget, widgets, dropdown, drop down  
 **Requires at least:** 2.8  
 **Tested up to:** 6.0  
-**Stable tag:** 2.3.2  
+**Stable tag:** 2.3.3  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -79,6 +79,9 @@ This plugin relies on WordPress' `get_terms()` function (http://codex.wordpress.
 To make targeting a specific filter reference possible should you use multiple instances of the dropdown (multiple widgets, use of the `taxonomy_dropdown_widget()` function, or some combination thereof), the filter provides a second argument, `$id`, that is either the numeric ID of the widget's instance or the string provided as the second argument to `taxonomy_dropdown_widget()`.
 
 ## Changelog ##
+
+### 2.3.3 ###
+* Correct hook used to load plugin textdomain.
 
 ### 2.3.2 ###
 * Ready plugin for translation.
@@ -165,6 +168,9 @@ To make targeting a specific filter reference possible should you use multiple i
 * Added the ability to trim tag names when calling the function directly.
 
 ## Upgrade Notice ##
+
+### 2.3.3 ###
+* Corrects hook used to load plugin textdomain.
 
 ### 2.3.2 ###
 Readies plugin for translation.
