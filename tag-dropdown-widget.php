@@ -80,7 +80,7 @@ class taxonomy_dropdown_widget_plugin {
 	 * @return null
 	 */
 	protected function setup() {
-		add_action( 'plugin_loaded', array( $this, 'load_textdomain' ) );
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'widgets_init', array( $this, 'action_widgets_init' ) );
 
 		register_activation_hook( __FILE__, array( $this, 'activation_hook' ) );
