@@ -9,7 +9,7 @@ module.exports = function( grunt ) {
 
 		addtextdomain: {
 			options: {
-				textdomain: 'taxonomy_dropdown_widget',
+				textdomain: 'tag-dropdown-widget',
 			},
 			update_all_domains: {
 				options: {

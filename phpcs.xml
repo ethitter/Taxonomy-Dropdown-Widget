@@ -39,7 +39,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<!-- Value: replace the text domain used. -->
-			<property name="text_domain" type="array" value="taxonomy_dropdown_widget"/>
+			<property name="text_domain" type="array" value="tag-dropdown-widget"/>
 		</properties>
 	</rule>
 	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
