@@ -1,0 +1,18 @@
+{
+  "name"        : "ethitter/taxonomy-dropdown-widget",
+  "description" : "Creates a dropdown list of non-hierarchical taxonomies as an alternative to the term (tag) cloud. Formerly known as Tag Dropdown Widget.",
+  "homepage"    : "https://ethitter.com/",
+  "type"        : "wordpress-plugin",
+  "keywords"    : [ "tag", "tags", "taxonomy", "sidebar", "widget", "widgets", "dropdown", "drop down" ],
+  "license"     : "GPL-2.0+",
+  "authors"     : [
+    {
+      "name"     : "Erick Hitter",
+      "email"    : "wp@ethitter.com",
+      "homepage" : "https://ethitter.com/"
+    }
+  ],
+  "require" : {
+    "php" : ">=5.6.0"
+  }
+}
